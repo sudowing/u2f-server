@@ -15,7 +15,7 @@ services:
     networks:
       - cache
   mfa-api:
-    image: u2f-server:master
+    image: sudowing/u2f-server:latest
     depends_on:
       - mfa-postgres
       - mfa-redis
