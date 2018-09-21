@@ -1,0 +1,21 @@
+.vscode
+.DS_Store
+# Logs
+logs
+*.log
+npm-debug.log*
+.v8flags*
+
+# Dependency directories
+node_modules
+typings
+
+# compiled js
+bin
+ts-node
+
+# code coverage reporting
+coverage
+.nyc_output
+
+volumes/db

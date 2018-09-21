@@ -1,0 +1,66 @@
+:root {
+  --jumbotron-padding-y: 3rem;
+}
+
+.jumbotron {
+  padding-top: var(--jumbotron-padding-y);
+  padding-bottom: var(--jumbotron-padding-y);
+  margin-bottom: 0;
+  background-color: #fff;
+}
+@media (min-width: 768px) {
+  .jumbotron {
+    padding-top: calc(var(--jumbotron-padding-y) * 2);
+    padding-bottom: calc(var(--jumbotron-padding-y) * 2);
+  }
+}
+
+.jumbotron p:last-child {
+  margin-bottom: 0;
+}
+
+.jumbotron-heading {
+  font-weight: 300;
+}
+
+.jumbotron .container {
+  max-width: 40rem;
+}
+
+footer {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+footer p {
+  margin-bottom: .25rem;
+}
+
+.box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+
+
+.demo-content {
+  background-image: url("../img/patterns/what-the-hex.png");
+  background-image: url("../img/patterns/light-grey-terrazzo.png");
+
+}
+
+.nice-shadow {
+  box-shadow: inset 0px 0px 10px rgba(0,0,0,0.5);
+}
+
+.nice-shadow-up {
+  box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.3);
+}
+
+.demo-content .container.pattern{
+  margin-bottom: 80vh;
+}
+
+
+
+
+input[type=text]:focus, textarea:focus {
+  box-shadow: 0 0 0px rgb(143, 0, 0);
+  border: 1px solid rgb(143, 0, 0);
+}

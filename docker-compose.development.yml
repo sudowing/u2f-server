@@ -1,0 +1,50 @@
+version: "2"
+services:
+  mfa-postgres:
+    ports:
+      - "5431:5432"
+  mfa-redis:
+    ports:
+      - "6378:6379"
+  mfa-api:
+    image: u2f-server:develop
+    command: ["npm", "run", "start"]
+    ports:
+      - "8881:8443"
+    volumes:
+      - ./src:/home/u2f_server/app/src
+      - ./coverage:/home/u2f_server/app/coverage
+  api-docs:
+    image: swaggerapi/swagger-ui
+    ports:
+      - "8882:8080"
+    environment:
+      API_URL: https://api.example.com/swagger
+  api-coverage:
+    image: nginx
+    ports:
+      - "8883:80"
+    volumes:
+      - ./coverage:/usr/share/nginx/html
+  api-client:
+    image: nginx
+    ports:
+      - "8884:80"
+    environment:
+      API_HOST: https://www.google.com
+    volumes:
+      - ./volumes/demo_client/www:/usr/share/nginx/html
+  dev-ssl-proxy:
+    image: valian/docker-nginx-auto-ssl
+    ports:
+      - "80:80"  
+      - "443:443"
+    environment:
+      ALLOWED_DOMAINS: example.com
+      SITES: 'api.example.com=10.186.132.137:8881;docs.example.com=10.186.132.137:8882;coverage.example.com=10.186.132.137:8883;example.com=10.186.132.137:8884;'
+    restart: always
+    depends_on:
+      - mfa-api
+      - api-docs
+      - api-coverage
+      - api-client

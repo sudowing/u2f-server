@@ -1,0 +1,33 @@
+version: "2"
+services:
+  mfa-postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: mfa
+      POSTGRES_USER: dbuser
+      POSTGRES_PASSWORD: dbpassword
+    networks:
+      - data
+    volumes:
+      - ./volumes/db/data:/var/lib/postgresql/data
+  mfa-redis:
+    image: redis
+    networks:
+      - cache
+  mfa-api:
+    image: u2f-server:master
+    depends_on:
+      - mfa-postgres
+      - mfa-redis
+    ports:
+      - "8443:8443"
+    networks:
+      - data
+      - cache
+    environment:
+      DB_URL: postgres://dbuser:dbpassword@mfa-postgres:5432/mfa
+      REDIS_HOST: mfa-redis
+      N_BASE_BACKUP_CODE: 4
+networks:
+  data: {}
+  cache: {}

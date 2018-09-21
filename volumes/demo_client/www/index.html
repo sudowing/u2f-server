@@ -1,0 +1,1105 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="./static/favicon.ico">
+
+    <title>U2F API Microservice Demo Client</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./static/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="./static/demo/css/app.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <header>
+      <div class="collapse bg-dark" id="navbarHeader">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-8 col-md-7 py-4">
+              <h4 class="text-white">About</h4>
+              <p class="text-muted">This web client is used to demo the U2F microservice API (u2f-server)</p>
+            </div>
+            <div class="col-sm-4 offset-md-1 py-4">
+              <h4 class="text-white">Client Secret</h4>
+              <input type="text" class="form-control" id="secret" name="secret" placeholder="API Secret">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="navbar navbar-dark bg-dark nice-shadow-up">
+        <div class="container d-flex justify-content-between">
+          <a href="#" class="navbar-brand d-flex align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+            <strong>U2F DEMO</strong>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main role="main">
+
+      <section class="jumbotron text-center nice-shadow">
+        <div class="container">
+          <h1 class="jumbotron-heading">2FA DEMO | U2F Client</h1>
+          <p class="lead text-muted">These demos make calls to a production U2F server.</p>
+          <p class="text-muted">Demos assume 1st Auth Factor has already been accomplished.</p>
+          <p class="text-muted">Providing: <kbd>appId</kbd> &amp; <kbd>account</kbd></p>
+          
+
+        </div>
+      </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+      <div class="album py-5">
+          <div class="container">
+
+            <div class="row justify-content-center"><h1>U2F Hardware Key</h1></div>
+        
+            <div class="row">
+        
+              <form class="form-inline _demo_form">
+                  <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" class="form-control appId" id="appId" name="appId" placeholder="Application ID">
+                  </div>
+                  <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" class="form-control" id="account" name="account" placeholder="User Account ID">
+                  </div>
+                  <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" class="form-control" id="nickname" name="nickname" placeholder="Device Nickname">
+                  </div>
+
+                  <button id="keyStatus" class="btn btn-danger mx-sm-1 mb-2 _check">Status</button>
+                  <button id="keyRegisterStart" class="btn btn-success mx-sm-1 mb-2 _register">Register</button>
+                  <button id="keyAuthenticateStart" class="btn btn-primary mx-sm-1 mb-2 _auth">Authenticate</button>
+                  <button id="keyRemove" class="btn btn-danger mx-sm-1 mb-2 _delete">Remove</button>
+
+                  <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" class="form-control" id="uuid" name="uuid" placeholder="Device UUID">
+                  </div>
+
+                  
+              </form>
+        
+            </div>
+        
+          </div>
+      </div>
+      
+      
+      <div class="album py-5 demo-content nice-shadow">
+          <div class="container pattern">
+      
+            <div class="row _demo_feedback">
+      
+              <div class="col-md-4">
+                <div class="card mb-4 nice-shadow-up">
+                  <div class="card-body">
+                    <ul>
+                        <li>Lookup Registered Keys</li>
+                        <li>Register | Bad Origin</li>
+                        <li>Register | Timeout</li>
+                        <li>Register | Success</li>
+                        <li>Authenticate</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="card mb-8 nice-shadow-up">
+                  <div class="card-body _feedback_instruction">
+                    <p class="card-text">
+                        <h2 class="_feedback_instruction_text" >Do this thing or that thing!</h2>
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <small class="text-muted">Action Required</small>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                      <p class="card-text _feedback_api_response">
+                          <code class="_feedback_api_response_text"></code>
+                      </p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">API Response</small>
+                      </div>
+                  </div>
+  
+                </div>
+              </div>
+      
+            </div>
+      
+          </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+      <div class="album py-5">
+          <div class="container">
+
+            <div class="row justify-content-center"><h1>Single Use Backup Code</h1></div>
+        
+            <div class="row">
+        
+              <form class="form-inline _demo_form">
+                  <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" class="form-control appId" id="appId" name="appId" placeholder="Application ID">
+                  </div>
+                  <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" class="form-control" id="account" name="account" placeholder="User Account ID">
+                  </div>
+
+                  <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" class="form-control" id="code" name="code" placeholder="Backup Code">
+                  </div>
+  
+
+
+                  <button id="codeIssue" class="btn btn-success mx-sm-1 mb-2 _register">Issue</button>
+                  <button id="codeAuthenticate" class="btn btn-primary mx-sm-1 mb-2 _auth">Authenticate</button>
+              </form>
+        
+            </div>
+        
+          </div>
+      </div>
+      
+      
+      <div class="album py-5 demo-content nice-shadow">
+          <div class="container pattern">
+      
+            <div class="row _demo_feedback">
+      
+              <div class="col-md-4">
+                <div class="card mb-4 nice-shadow-up">
+                  <div class="card-body">
+                    <ul>
+                        <li>Issue Codes</li>
+                        <li>Authenticate</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="card mb-8 nice-shadow-up">
+                  <div class="card-body _feedback_instruction">
+                    <p class="card-text">
+                        <h2 class="_feedback_instruction_text" >Do this thing or that thing!</h2>
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <small class="text-muted">Action Required</small>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                      <p class="card-text _feedback_api_response">
+                          <code class="_feedback_api_response_text"></code>
+                      </p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">API Response</small>
+                      </div>
+                  </div>
+  
+                </div>
+              </div>
+      
+            </div>
+      
+          </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+      <div class="album py-5">
+          <div class="container">
+
+            <div class="row justify-content-center"><h1>Temporary One-Time Password (TOTP)</h1></div>
+        
+            <div class="row">
+        
+              <form class="form-inline _demo_form">
+                  <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" class="form-control appId" id="appId" name="appId" placeholder="Application ID">
+                  </div>
+                  <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" class="form-control" id="account" name="account" placeholder="User Account ID">
+                  </div>
+
+                  <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" class="form-control" id="nickname" name="nickname" placeholder="Device Nickname">
+                  </div>
+
+                  <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" class="form-control" id="token" name="token" placeholder="OTP Token">
+                  </div>
+
+                  <button id="otpStatus" class="btn btn-danger mx-sm-1 mb-2 _check">Status</button>
+                  <button id="otpRegisterStart" class="btn btn-success mx-sm-1 mb-2 _register">Begin Registration</button>
+                  <button id="otpRegisterFinish" class="btn btn-success mx-sm-1 mb-2 _register2">Complete Registration</button>
+                  <button id="otpAuthenticate" class="btn btn-primary mx-sm-1 mb-2 _auth">Authenticate</button>
+
+                  <button id="otpRemove" class="btn btn-danger mx-sm-1 mb-2 _delete">Remove</button>
+
+                  <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" class="form-control" id="uuid" name="uuid" placeholder="Device UUID">
+                  </div>
+
+
+              </form>
+        
+            </div>
+        
+          </div>
+      </div>
+      
+      
+      <div class="album py-5 demo-content nice-shadow">
+          <div class="container pattern">
+      
+            <div class="row _demo_feedback">
+      
+              <div class="col-md-4">
+                <div class="card mb-4 nice-shadow-up">
+                  <div class="card-body">
+                    <ul>
+                      <li>Lookup Registered Devices</li>
+                      <li>Register | Success</li>
+                      <li>Authenticate</li>
+                </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="card mb-8 nice-shadow-up">
+                  <div class="card-body _feedback_instruction">
+                    <p class="card-text">
+                        <h2 class="_feedback_instruction_text" >Do this thing or that thing!</h2>
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <small class="text-muted">Action Required</small>
+                    </div>
+                  </div>
+
+                  <div class="card-body">
+
+                      <p class="card-text _feedback_api_secret_string">
+                          <code class="_feedback_api_secret_string_text"></code>
+                      <p/>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">OTP Secret</small>
+                      </div>
+
+                      <img class="_feedback_api_secret_image" src="">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">OTP Secret QR Code</small>
+                      </div>
+                  </div>
+
+
+                  <div class="card-body">
+                      <p class="card-text _feedback_api_response">
+                          <code class="_feedback_api_response_text"></code>
+                      </p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">API Response</small>
+                      </div>
+                  </div>
+                  
+
+                </div>
+              </div>
+      
+            </div>
+      
+          </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+      <div class="album py-5">
+          <div class="container">
+
+            <div class="row justify-content-center"><h1>Check MFA Status</h1></div>
+        
+            <div class="row">
+        
+              <form class="form-inline _demo_form">
+                  <div class="form-group mx-sm-3 mb-2">
+                    <label for="staticEmail2" class="sr-only">Email</label>
+                    <input type="text" class="form-control appId" id="appId" name="appId" placeholder="Application ID">
+                  </div>
+                  <div class="form-group mx-sm-3 mb-2">
+                    <label for="inputPassword2" class="sr-only">Password</label>
+                    <input type="text" class="form-control" id="account" name="account" placeholder="User Account ID">
+                  </div>
+                  <button id="mfaStatus" class="btn btn-danger mx-sm-1 mb-2 _check">Check MFA Status</button>
+              </form>
+        
+            </div>
+        
+          </div>
+      </div>
+      
+      
+      <div class="album py-5 demo-content nice-shadow">
+          <div class="container pattern">
+      
+            <div class="row _demo_feedback">
+      
+              <div class="col-md-4">
+                <div class="card mb-4 nice-shadow-up">
+                  <div class="card-body">
+                    <p class="card-text _feedback_notice">
+                      This API call indicates with MFA methods have been setup and provides all necessary payloads for U2F challenges.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="card mb-8 nice-shadow-up">
+                  <div class="card-body _feedback_instruction">
+                    <p class="card-text">
+                        <h2 class="_feedback_instruction_text" >Do this thing or that thing!</h2>
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <small class="text-muted">Action Required</small>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                      <p class="card-text _feedback_api_response">
+                          <code class="_feedback_api_response_text"></code>
+                      </p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">API Response</small>
+                      </div>
+                  </div>
+  
+                </div>
+              </div>
+      
+            </div>
+      
+          </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+      <div class="album py-5">
+        <div class="container">
+
+          <div class="row justify-content-center"><h1>Check MFA Auth Logs</h1></div>
+      
+          <div class="row">
+      
+            <form class="form-inline _demo_form">
+                <div class="form-group mx-sm-3 mb-2">
+                  <label for="staticEmail2" class="sr-only">Email</label>
+                  <input type="text" class="form-control appId" id="appId" name="appId" placeholder="Application ID">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                  <label for="inputPassword2" class="sr-only">Password</label>
+                  <input type="text" class="form-control" id="account" name="account" placeholder="User Account ID">
+                </div>
+                <button id="mfaLogs" class="btn btn-danger mx-sm-1 mb-2 _check">Check MFA Logs</button>
+            </form>
+      
+          </div>
+      
+        </div>
+    </div>
+    
+    
+    <div class="album py-5 demo-content nice-shadow">
+        <div class="container pattern">
+    
+          <div class="row _demo_feedback">
+    
+            <div class="col-md-4">
+              <div class="card mb-4 nice-shadow-up">
+                <div class="card-body">
+                  <p class="card-text _feedback_notice">
+                    This API call indicates with MFA methods have been setup and provides all necessary payloads for U2F challenges.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="card mb-8 nice-shadow-up">
+                <div class="card-body _feedback_instruction">
+                  <p class="card-text">
+                      <h2 class="_feedback_instruction_text" >Do this thing or that thing!</h2>
+                  </p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted">Action Required</small>
+                  </div>
+                </div>
+                <div class="card-body">
+                    <p class="card-text _feedback_api_response">
+                        <code class="_feedback_api_response_text"></code>
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <small class="text-muted">API Response</small>
+                    </div>
+                </div>
+
+              </div>
+            </div>
+    
+          </div>
+    
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+      
+
+
+      
+      
+
+      
+    </main>
+
+    <footer class="text-muted">
+      <div class="container">
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="./static/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="./static/assets/js/vendor/popper.min.js"></script>
+    <script src="./static/dist/js/bootstrap.min.js"></script>
+    <script src="./static/assets/js/vendor/holder.min.js"></script>
+
+    <!-- u2f-login.html -->
+    <script src="./static/assets/js/vendor/u2f-api.js"></script>
+
+    <script src="./static/demo/js/app.js"></script>
+
+  </body>
+</html>
