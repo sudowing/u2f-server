@@ -250,8 +250,8 @@ describe('Root Level | API Responses', function() {
           // eval response
           const swaggerKeys = [
             'swagger', 'info', 'host',
-            'basePath', 'tags', 'schemes',
-            'paths', 'securityDefinitions',
+            'tags',
+            'paths',
             'definitions', 'externalDocs'
           ]
           expect(res.statusCode).to.exist.and.eql(200)
