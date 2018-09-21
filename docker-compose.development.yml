@@ -7,7 +7,7 @@ services:
     ports:
       - "6378:6379"
   mfa-api:
-    image: u2f-server:develop
+    image: sudowing/u2f-server:develop
     command: ["npm", "run", "start"]
     ports:
       - "8881:8443"
@@ -30,8 +30,6 @@ services:
     image: nginx
     ports:
       - "8884:80"
-    environment:
-      API_HOST: https://www.google.com
     volumes:
       - ./volumes/demo_client/www:/usr/share/nginx/html
   dev-ssl-proxy:
