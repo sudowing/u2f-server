@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 ### Fixed
 
-## [1.0.1](https://github.com/sudowing/u2f-server/tree/v1.0.1) - 2018-09-21
+## [1.1.0](https://github.com/sudowing/u2f-server/tree/v1.1.0) - 2018-09-21
 ### Added
 Initial commit
 
