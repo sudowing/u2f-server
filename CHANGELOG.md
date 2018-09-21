@@ -11,7 +11,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 ### Fixed
 
-## [1.1.0](https://github.com/sudowing/u2f-server/tree/v1.1.0) - 2018-09-21
+## [1.1.1](https://github.com/sudowing/u2f-server/tree/v1.1.1) - 2018-09-21
+
+### Fixed
+- Corrected image tags to point at docker hub.
+- Updated image tags in make build.
+
 ### Added
-Initial commit
+- Added make publish that pushes newly release images to docker hub.
+
+
+## [1.1.0](https://github.com/sudowing/u2f-server/tree/v1.1.0) - 2018-09-21
+
+### Added
+- Initial commit.
 
