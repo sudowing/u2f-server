@@ -1,44 +1,52 @@
 swagger: "2.0"
 info:
-  description: "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters."
-  version: "1.0.0"
-  title: "Swagger Petstore"
-  termsOfService: "http://swagger.io/terms/"
-  contact:
-    email: "apiteam@swagger.io"
-  license:
-    name: "Apache 2.0"
-    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "petstore.swagger.io"
-basePath: "/v2"
+  description: "This is a multi-factor authentication server. It supports single use backup-codes, one-time passwords (totp) and hardware tokens."
+  version: "1.1.0"
+  title: "U2F Server Microservice"
+host: "api.example.com"
 tags:
   - name: "key"
-    description: "some description"
+    description: "Hardware Tokens"
     externalDocs:
-      description: "wiki"
-      url: "https://google.com"
+      description: "fido"
+      url: "https://tinyurl.com/ycpjck7w"
   - name: "otp"
-    description: "some description"
+    description: "One-Time Passwords"
     externalDocs:
       description: "wiki"
-      url: "https://google.com"
+      url: "https://tinyurl.com/y84ns7ju"
   - name: "code"
-    description: "some description"
+    description: "Backup Codes"
     externalDocs:
-      description: "wiki"
-      url: "https://google.com"
+      description: "google support"
+      url: "https://tinyurl.com/ycd9ahxe"
 
 
-schemes:
-- "https"
-- "http"
 paths:
 
   /status:
     get:
       operationId: "mfaStatus"
-      summary: "some summary"
-      description: "some description"
+      summary: "Check MFA Methods"
+      description: "Lookup Configured MFA Methods AND get any/all U2F challenges necessary to generate a U2F response."
+
+      parameters:
+        - name: "appId"
+          in: "query"
+          description: "User facing application id (FQDN)"
+          required: true
+          type: "string"
+        - name: "account"
+          in: "query"
+          description: "account handle, uuid, primary key"
+          required: true
+          type: "string"
+        - name: "secret"
+          in: "query"
+          description: "Secret used to salt u2fId in API Database"
+          type: "string"
+
+
       responses:
         200:
           description: "successful operation"
@@ -48,8 +56,26 @@ paths:
   /logs:
     get:
       operationId: "mfaLogs"
-      summary: "some summary"
-      description: "some description"
+      summary: "MFA Access Logs"
+      description: "Get records for all authentication attempts (success & failure)"
+
+      parameters:
+        - name: "appId"
+          in: "query"
+          description: "User facing application id (FQDN)"
+          required: true
+          type: "string"
+        - name: "account"
+          in: "query"
+          description: "account handle, uuid, primary key"
+          required: true
+          type: "string"
+        - name: "secret"
+          in: "query"
+          description: "Secret used to salt u2fId in API Database"
+          type: "string"
+
+      
       responses:
         200:
           description: "successful operation"
@@ -61,8 +87,18 @@ paths:
       operationId: "keyRegisterStart"
       tags:
       - "key"
-      summary: "some summary"
+      summary: "Start Key Registration"
       description: "some description"
+
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "zzzzz"
+          required: true
+          schema:
+            $ref: "#/definitions/BasicUserInfo"      
+
+      
       responses:
         200:
           description: "successful operation"
@@ -74,8 +110,18 @@ paths:
       operationId: "keyRegisterFinish"
       tags:
       - "key"
-      summary: "some summary"
+      summary: "Finish Key Registration"
       description: "some description"
+
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "zzzzz"
+          required: true
+          schema:
+            $ref: "#/definitions/keyRegisterFinish"      
+
+      
       responses:
         200:
           description: "successful operation"
@@ -87,8 +133,18 @@ paths:
       operationId: "keyRemove"
       tags:
       - "key"
-      summary: "some summary"
-      description: "some description"
+      summary: "Remove Registrated Key"
+      description: "Using a registered key's uuid, remove the device from a users account."
+
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Method for removing registered U2F key from users account."
+          required: true
+          schema:
+            $ref: "#/definitions/uuidRemove"      
+
+
       responses:
         200:
           description: "successful operation"
@@ -100,8 +156,18 @@ paths:
       operationId: "keyAuthenticateStart"
       tags:
       - "key"
-      summary: "some summary"
-      description: "some description"
+      summary: "Start Key Authentication"
+      description: "Generate U2F challenges for all registered U2F hardware tokens."
+      
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "zzzzz"
+          required: true
+          schema:
+            $ref: "#/definitions/BasicUserInfo"      
+      
+      
       responses:
         200:
           description: "successful operation"
@@ -113,8 +179,19 @@ paths:
       operationId: "keyAuthenticateFinish"
       tags:
       - "key"
-      summary: "some summary"
-      description: "some description"
+      summary: "Finish Key Authentication"
+      description: "Verify the response generated by the U2F hardware token."
+
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "zzzzz"
+          required: true
+          schema:
+            $ref: "#/definitions/keyAuthenticateFinish"      
+
+      
+      
       responses:
         200:
           description: "successful operation"
@@ -126,8 +203,18 @@ paths:
       operationId: "otpRegisterStart"
       tags:
       - "otp"
-      summary: "some summary"
-      description: "some description"
+      summary: "Start OTP Registration"
+      description: "Generate a secret and send it as a payload I can display as a QR Code."
+
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Basic info needed to identify a users unique account."
+          required: true
+          schema:
+            $ref: "#/definitions/BasicUserInfo"      
+
+      
       responses:
         200:
           description: "successful operation"
@@ -139,8 +226,18 @@ paths:
       operationId: "otpRegisterFinish"
       tags:
       - "otp"
-      summary: "some summary"
-      description: "some description"
+      summary: "Start OTP Registration"
+      description: "Verify that the response code was generated using the secret."
+
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Basic info needed to identify a users unique account AND token generated by a OTP device with the last generated secret."
+          required: true
+          schema:
+            $ref: "#/definitions/otpRegisterFinish"      
+
+
       responses:
         200:
           description: "successful operation"
@@ -152,8 +249,18 @@ paths:
       operationId: "otpRemove"
       tags:
       - "otp"
-      summary: "some summary"
-      description: "some description"
+      summary: "Remove Registrated OTP Device"
+      description: "Using a registered devices's uuid, remove the device from a users account."
+
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Method for removing registered OTP Device from users account."
+          required: true
+          schema:
+            $ref: "#/definitions/uuidRemove"      
+
+      
       responses:
         200:
           description: "successful operation"
@@ -165,8 +272,32 @@ paths:
       operationId: "otpAuthenticate"
       tags:
       - "otp"
-      summary: "some summary"
-      description: "some description"
+      summary: "Authenticate"
+      description: "Verify that the token provided was generated using any of the secrets I have stored in registered OTP devices."
+
+
+      parameters:
+        - name: "appId"
+          in: "query"
+          description: "User facing application id (FQDN)"
+          required: true
+          type: "string"
+        - name: "account"
+          in: "query"
+          description: "account handle, uuid, primary key"
+          required: true
+          type: "string"
+        - name: "secret"
+          in: "query"
+          description: "Secret used to salt u2fId in API Database"
+          type: "string"
+        - name: "token"
+          in: "query"
+          description: "OTP Token Generated by Device using stored secret"
+          required: true
+          type: "string"
+      
+      
       responses:
         200:
           description: "successful operation"
@@ -178,8 +309,17 @@ paths:
       operationId: "codeRegister"
       tags:
       - "code"
-      summary: "some summary"
-      description: "some description"
+      summary: "Issue"
+      description: "Issue a batch of single-use backup codes"
+
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Basic info needed to identify a users unique account."
+          required: true
+          schema:
+            $ref: "#/definitions/BasicUserInfo"      
+
       responses:
         200:
           description: "successful operation"
@@ -191,8 +331,31 @@ paths:
       operationId: "codeAuthenticate"
       tags:
       - "code"
-      summary: "some summary"
-      description: "some description"
+      summary: "Authenticate"
+      description: "Verify that the code provided has been issued to my account."
+
+      parameters:
+        - name: "appId"
+          in: "query"
+          description: "User facing application id (FQDN)"
+          required: true
+          type: "string"
+        - name: "account"
+          in: "query"
+          description: "account handle, uuid, primary key"
+          required: true
+          type: "string"
+        - name: "secret"
+          in: "query"
+          description: "Secret used to salt u2fId in API Database"
+          type: "string"
+        - name: "code"
+          in: "query"
+          description: "Issued Backup Code"
+          required: true
+          type: "string"
+
+      
       responses:
         200:
           description: "successful operation"
@@ -201,157 +364,174 @@ paths:
 
 
 
-securityDefinitions:
-  petstore_auth:
-    type: "oauth2"
-    authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
-    flow: "implicit"
-    scopes:
-      write:pets: "modify pets in your account"
-      read:pets: "read your pets"
-  api_key:
-    type: "apiKey"
-    name: "api_key"
-    in: "header"
+
 definitions:
-  Order:
-    type: "object"
-    properties:
-      id:
-        type: "integer"
-        format: "int64"
-      petId:
-        type: "integer"
-        format: "int64"
-      quantity:
-        type: "integer"
-        format: "int32"
-      shipDate:
-        type: "string"
-        format: "date-time"
-      status:
-        type: "string"
-        description: "Order Status"
-        enum:
-        - "placed"
-        - "approved"
-        - "delivered"
-      complete:
-        type: "boolean"
-        default: false
-    xml:
-      name: "Order"
-  Category:
-    type: "object"
-    properties:
-      id:
-        type: "integer"
-        format: "int64"
-      name:
-        type: "string"
-    xml:
-      name: "Category"
-  User:
-    type: "object"
-    properties:
-      id:
-        type: "integer"
-        format: "int64"
-      username:
-        type: "string"
-      firstName:
-        type: "string"
-      lastName:
-        type: "string"
-      email:
-        type: "string"
-      password:
-        type: "string"
-      phone:
-        type: "string"
-      userStatus:
-        type: "integer"
-        format: "int32"
-        description: "User Status"
-    xml:
-      name: "User"
-  Tag:
-    type: "object"
-    properties:
-      id:
-        type: "integer"
-        format: "int64"
-      name:
-        type: "string"
-    xml:
-      name: "Tag"
-  Pet:
+  BasicUserInfo:
     type: "object"
     required:
-    - "name"
-    - "photoUrls"
+      - "appId"
+      - "account"
     properties:
-      id:
-        type: "integer"
-        format: "int64"
-      category:
-        $ref: "#/definitions/Category"
-      name:
+      appId:
         type: "string"
-        example: "doggie"
-      photoUrls:
-        type: "array"
-        xml:
-          name: "photoUrl"
-          wrapped: true
-        items:
-          type: "string"
-      tags:
-        type: "array"
-        xml:
-          name: "tag"
-          wrapped: true
-        items:
-          $ref: "#/definitions/Tag"
-      status:
+        description: "User facing application id (FQDN)"
+        example: "https://example.com"
+      account:
         type: "string"
-        description: "pet status in the store"
-        enum:
-        - "available"
-        - "pending"
-        - "sold"
-    xml:
-      name: "Pet"
-  ApiResponse:
-    type: "object"
-    properties:
-      code:
-        type: "integer"
-        format: "int32"
-      type:
+        description: "handle, uuid, account primary key"
+        example: "superman"
+      secret:
         type: "string"
-      message:
-        type: "string"
-  modelName:
+        description: "Secret used to salt u2fId in API Database"
+        example: ""
+  otpRegisterFinish:
     type: "object"
     required:
       - "appId"
       - "account"
       - "secret"
+      - "token"
     properties:
       appId:
         type: "string"
-        description: "some description"
-        example: "zzzzz"
+        description: "User facing application id (FQDN)"
+        example: "https://example.com"
       account:
         type: "string"
-        description: "some description"
-        example: "zzzzz"
+        description: "handle, uuid, account primary key"
+        example: "superman"
       secret:
         type: "string"
-        description: "some description"
-        example: "zzzzz"
+        description: "Secret used to salt u2fId in API Database"
+        example: ""
+      token:
+        type: "string"
+        description: "otp generated token"
+      nickname:
+        type: "string"
+        description: "Nickname for OTP device"
+        example: ""
+
+  uuidRemove:
+    type: "object"
+    required:
+      - "appId"
+      - "account"
+      - "secret"
+      - "uuid"
+    properties:
+      appId:
+        type: "string"
+        description: "User facing application id (FQDN)"
+        example: "https://example.com"
+      account:
+        type: "string"
+        description: "handle, uuid, account primary key"
+        example: "superman"
+      secret:
+        type: "string"
+        description: "Secret used to salt u2fId in API Database"
+        example: ""
+      uuid:
+        type: "string"
+        description: "uuid for registered OTP Device or U2F Hardware Token"
+        example: ""
+
+  keyRegisterFinish:
+    type: "object"
+    required:
+      - "appId"
+      - "account"
+      - "secret"
+      - "registrationResponse"
+    properties:
+      appId:
+        type: "string"
+        description: "User facing application id (FQDN)"
+        example: "https://example.com"
+      account:
+        type: "string"
+        description: "handle, uuid, account primary key"
+        example: "superman"
+      secret:
+        type: "string"
+        description: "Secret used to salt u2fId in API Database"
+        example: ""
+      registrationResponse:
+        description: "registrationResponse object"
+        $ref: "#/definitions/registrationResponse"      
+        
+      nickname:
+        type: "string"
+        description: "Nickname for OTP device"
+        example: ""
+
+
+  registrationResponse:
+    type: "object"
+    description: "Response generated by U2F device using u2f-api.js"
+    required:
+      - "registrationData"
+      - "version"
+      - "appId"
+      - "challenge"
+      - "clientData"
+    properties:
+      registrationData:
+        type: "string"
+      version:
+        type: "string"
+      appId:
+        type: "string"
+        description: "User facing application id (FQDN)"
+      challenge:
+        type: "string"
+      clientData:
+        type: "string"
+        description: "string"
+
+  keyAuthenticateFinish:
+    type: "object"
+    required:
+      - "appId"
+      - "account"
+      - "secret"
+      - "registrationResponse"
+    properties:
+      appId:
+        type: "string"
+        description: "User facing application id (FQDN)"
+        example: "https://example.com"
+      account:
+        type: "string"
+        description: "handle, uuid, account primary key"
+        example: "superman"
+      secret:
+        type: "string"
+        description: "Secret used to salt u2fId in API Database"
+        example: ""
+      registrationResponse:
+        description: "registrationResponse object"
+        $ref: "#/definitions/authenticationResponse"
+
+  authenticationResponse:
+    type: "object"
+    description: "Authentication Response generated by U2F device using u2f-api.js and challenge received from API"
+    required:
+      - "keyHandle"
+      - "clientData"
+      - "signatureData"
+    properties:
+      keyHandle:
+        type: "string"
+      clientData:
+        type: "string"
+      signatureData:
+        type: "string"
+
+
+
 externalDocs:
-  description: "Find out more about Swagger"
-  url: "http://swagger.io"
+    description: "Source on Github"
+    url: "https://github.com/sudowing/u2f-server"
 
