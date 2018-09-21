@@ -1,15 +1,22 @@
 .PHONY: build run start stop clean test connect promote
 
 PROJ_NAME = "u2f-server"
-CONTAINER_DEV_IMAGE = "u2f-server:develop"
-CONTAINER_RELEASE_IMAGE = "u2f-server:master"
+CONTAINER_DEV_IMAGE = "sudowing/u2f-server:develop"
 
 build:
 	docker build --pull -t $(CONTAINER_DEV_IMAGE) -f docker/Dockerfile .
 
 release:
 	make build
-	docker tag $(CONTAINER_DEV_IMAGE) $(CONTAINER_RELEASE_IMAGE)
+	docker tag $(CONTAINER_DEV_IMAGE) sudowing/u2f-server:master
+	# docker tag $(CONTAINER_DEV_IMAGE) sudowing/u2f-server:1.1.0
+	docker tag $(CONTAINER_DEV_IMAGE) sudowing/u2f-server:latest
+	docker tag $(CONTAINER_DEV_IMAGE) sudowing/u2f-server:edge
+
+publish:
+	# docker push sudowing/u2f-server:1.1.0
+	docker push sudowing/u2f-server:latest
+	docker push sudowing/u2f-server:edge
 
 stop:
 	@docker-compose stop
