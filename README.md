@@ -3,9 +3,14 @@
 
 ## Getting Started
 
-These instructions will help you get the project up and running on your local machine for development.
+These instructions will help you get the project up and running.
 
-For more information about MFA & U2F see [BACKGROUND.md](./BACKGROUND.md)
+For more information about **Universal 2nd Factor** & **One-Time Password** see :
+- [`yubikey: U2F Overview`](https://developers.yubico.com/U2F/)
+- [`fido: Standards Overview`](https://fidoalliance.org/specifications/overview/)
+- [`wiki: Universal 2nd Factor`](https://en.wikipedia.org/wiki/Universal_2nd_Factor)
+- [`wiki: OTP (totp)`](https://en.wikipedia.org/wiki/Time-based_One-time_Password_algorithm)
+
 
 ## Prerequisites
 
