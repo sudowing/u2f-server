@@ -44,7 +44,7 @@ export class AppResponseGenerator extends BaseResponseGenerator {
           }
         })
         .then(dbResponse => {
-          return this.genServerResponse({ data: dbResponse})
+          return this.genServerResponse(dbResponse)
         })
         .catch(err => {
           return this.genServerResponse(this.genError('database', err), 400)
