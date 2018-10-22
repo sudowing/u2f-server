@@ -89,7 +89,7 @@ function genError(error: string, detail: any): ServerResponseError {
 function determineAuthType(classType) {
   switch (classType) {
     case 'BackupCodeResponseGenerator':
-      return 'BACKUP-CODE'
+      return 'CODE'
     case 'OTPResponseGenerator':
       return 'OTP'
     case 'U2FResponseGenerator':
