@@ -1,8 +1,8 @@
-export interface otpRegisterFinish {
+export interface otpResRegisterFinish {
     message: string
 }
 
-export interface otpRegisterStart {
+export interface otpResRegisterStart {
     imageUrl: string,
     secret: string
 }
