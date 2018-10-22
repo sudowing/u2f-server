@@ -3,7 +3,7 @@ import * as crypto from 'crypto'
 import * as uuidv4 from 'uuid/v4'
 
 import { data } from './app.queries'
-import { ServerResponseSuccess, ServerResponseError, ServerResponse } from './app.interfaces'
+import { ServerResponseAuthSuccess, ServerResponseError, ServerResponse } from './app.interfaces'
 
 interface ValidationProblem {
   prop: string,
@@ -74,7 +74,7 @@ function genNickname(deviceType: string): string {
 
 
 
-function genServerResponse(payload: ServerResponseSuccess|ServerResponseError, statusCode: number = 200): ServerResponse {
+function genServerResponse(payload, statusCode: number = 200): ServerResponse {
   return { statusCode, payload }
 }
 
@@ -110,7 +110,7 @@ function genAuthError(u2fid): ServerResponseError {
   return genError('authentication', 'Provided Credentials No Good.')
 }
 
-function genAuthSuccess(u2fid): ServerResponseSuccess {
+function genAuthSuccess(u2fid): ServerResponseAuthSuccess {
   const record: any = {
     uuid: uuidv4(),
     u2fid,
