@@ -7,3 +7,8 @@ export interface BackupCodeRecord {
   u2fid: string,
   code: string
 }
+
+
+// codeRegister
+//     string[]
+
