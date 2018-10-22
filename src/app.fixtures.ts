@@ -108,61 +108,57 @@ fixtures.mfaStatus = {
     {
       statusCode: 200,
       payload: {
-        data: {
-          summary: {
-            otp_device: true,
-            u2f_key: true,
-            backup_code: true
+        summary: {
+          otp_device: true,
+          u2f_key: true,
+          backup_code: true
+        },
+        challenges: [
+          {
+            u2ftype: 'u2f_key',
+            uuid: 'ef82aa1b-9356-4d62-b40a-ec31675ea567',
+            key_handle: 'iAk6YBg-l-HXsT2Ffo_GazEJNKh7a_YpXNAvRUcKb054Br350HMmew7fpi9bs1Dd3TIki4B9R5SjkdSD7LuCcQ',
+            version: 'U2F_V2',
+            nickname: 'U2F Key created @ 2018-8-1 17:0'
           },
-          challenges: [
-            {
-              u2ftype: 'u2f_key',
-              uuid: 'ef82aa1b-9356-4d62-b40a-ec31675ea567',
-              key_handle: 'iAk6YBg-l-HXsT2Ffo_GazEJNKh7a_YpXNAvRUcKb054Br350HMmew7fpi9bs1Dd3TIki4B9R5SjkdSD7LuCcQ',
-              version: 'U2F_V2',
-              nickname: 'U2F Key created @ 2018-8-1 17:0'
-            },
-            {
-              u2ftype: 'u2f_key',
-              uuid: '341b4b8c-0aae-42da-972a-343511714c7c',
-              key_handle: '-MmYXk7vDQIwciTN98E35Q_AkWfEfVL_t8P8Iqd_cazrXUUFGzdUFMXM51c9MCRulWlOieaobUfefUO9xaIngQ',
-              version: 'U2F_V2',
-              nickname: 'U2F Key created @ 2018-8-1 17:0'
-            },
-            {
-              u2ftype: 'u2f_key',
-              uuid: 'f917f587-d86a-408f-9cc0-9556188c8a11',
-              key_handle: 'nm2PZXXBZ1s8Z4yk-j-55InGk37XDjdblRTBQv1Cz7Yd2hbZZhssKjys9S2FcDIE5yTGqNx_zKS2SBGaXB_T8A',
-              version: 'U2F_V2',
-              nickname: 'U2F Key created @ 2018-8-1 17:0'
-            },
-            {
-              u2ftype: 'otp_device',
-              uuid: '0881b88f-71f0-40d0-a921-de08f1515328',
-              secret: 'IVETQM2YMEXUSZ3BJBEXS2L2JF4U4U2U',
-              nickname: 'OTP Device created @ 2018-8-1 17:2'
-            },
-            {
-              u2ftype: 'otp_device',
-              uuid: '00a6af21-cc6d-4e43-ab17-4e2a3bd0d5ea',
-              secret: 'NVVVAOKEJRTSWQZPPAYFIU3ULFDTSSDB',
-              nickname: 'OTP Device created @ 2018-8-1 17:2'
-            }
-          ]
-        }
+          {
+            u2ftype: 'u2f_key',
+            uuid: '341b4b8c-0aae-42da-972a-343511714c7c',
+            key_handle: '-MmYXk7vDQIwciTN98E35Q_AkWfEfVL_t8P8Iqd_cazrXUUFGzdUFMXM51c9MCRulWlOieaobUfefUO9xaIngQ',
+            version: 'U2F_V2',
+            nickname: 'U2F Key created @ 2018-8-1 17:0'
+          },
+          {
+            u2ftype: 'u2f_key',
+            uuid: 'f917f587-d86a-408f-9cc0-9556188c8a11',
+            key_handle: 'nm2PZXXBZ1s8Z4yk-j-55InGk37XDjdblRTBQv1Cz7Yd2hbZZhssKjys9S2FcDIE5yTGqNx_zKS2SBGaXB_T8A',
+            version: 'U2F_V2',
+            nickname: 'U2F Key created @ 2018-8-1 17:0'
+          },
+          {
+            u2ftype: 'otp_device',
+            uuid: '0881b88f-71f0-40d0-a921-de08f1515328',
+            secret: 'IVETQM2YMEXUSZ3BJBEXS2L2JF4U4U2U',
+            nickname: 'OTP Device created @ 2018-8-1 17:2'
+          },
+          {
+            u2ftype: 'otp_device',
+            uuid: '00a6af21-cc6d-4e43-ab17-4e2a3bd0d5ea',
+            secret: 'NVVVAOKEJRTSWQZPPAYFIU3ULFDTSSDB',
+            nickname: 'OTP Device created @ 2018-8-1 17:2'
+          }
+        ]
       }
     },
     {
       statusCode: 200,
       payload: {
-        data: {
-          summary: {
-            otp_device: false,
-            u2f_key: false,
-            backup_code: false
-          },
-          challenges: []
-        }
+        summary: {
+          otp_device: false,
+          u2f_key: false,
+          backup_code: false
+        },
+        challenges: []
       }
     },
     'sample error string',
@@ -251,14 +247,14 @@ fixtures.mfaLogs = {
         uuid: '86e916a1-fae9-4a42-8376-12c4b0854230',
         timestamp: '2018-09-19T12:58:23.963Z',
         u2fid: 'a5ab2a41dadcadbd3c5d409f2335bcd1c130c417e0f02d63eed2da891d8f07eb',
-        auth_type: 'BACKUP-CODE',
+        auth_type: 'BACKUPCODE',
         result: true
       },
       {
         uuid: '28552750-5fcc-4036-88ab-12ceb3b0c1c7',
         timestamp: '2018-09-19T12:58:26.351Z',
         u2fid: 'a5ab2a41dadcadbd3c5d409f2335bcd1c130c417e0f02d63eed2da891d8f07eb',
-        auth_type: 'BACKUP-CODE',
+        auth_type: 'BACKUPCODE',
         result: false
       }
     ],
