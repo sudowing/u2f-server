@@ -5,7 +5,7 @@ import { toDataURL as qrCodeDataURL } from 'qrcode'
 import * as uuidv4 from 'uuid/v4'
 
 import { BaseResponseGenerator } from '../../utils'
-import { ServerResponseSuccess, ServerResponseError, ServerResponse } from '../../app.interfaces'
+import { ServerResponse } from '../../app.interfaces'
 
 import { data } from './otp-device.queries'
 import { cache } from '../../app.network-resources'
