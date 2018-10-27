@@ -98,7 +98,7 @@ describe('U2F Key | API Responses', function() {
       Promise.resolve(api.keyRegisterStart(payload))
         .then((res) => {
           // eval response
-          expect(res.statusCode).to.exist.and.eql(400)
+          expect(res.statusCode).to.exist.and.eql(500)
           expect(res).to.exist.and.eql(fix.keyRegisterStart.output[5])
         })
         .then(() => {
@@ -209,7 +209,7 @@ describe('U2F Key | API Responses', function() {
       Promise.resolve(api.keyRegisterFinish(payload))
         .then((res) => {
           // eval response
-          expect(res.statusCode).to.exist.and.eql(400)
+          expect(res.statusCode).to.exist.and.eql(500)
           expect(res).to.exist.and.eql(fix.keyRegisterFinish.output[7])
 
         })
@@ -248,7 +248,7 @@ describe('U2F Key | API Responses', function() {
       Promise.resolve(api.keyRegisterFinish(payload))
         .then((res) => {
           // eval response
-          expect(res.statusCode).to.exist.and.eql(400)
+          expect(res.statusCode).to.exist.and.eql(500)
           expect(res).to.exist.and.eql(fix.keyRegisterFinish.output[6])
         })
         .then(() => {
@@ -453,7 +453,7 @@ describe('U2F Key | API Responses', function() {
       Promise.resolve(api.keyRemove(payload))
         .then((res) => {
           // eval response
-          expect(res.statusCode).to.exist.and.eql(400)
+          expect(res.statusCode).to.exist.and.eql(500)
           expect(res).to.exist.and.eql(fix.keyRemove.output[7])
         })
         .then(() => {
@@ -565,7 +565,7 @@ describe('U2F Key | API Responses', function() {
       Promise.resolve(api.keyAuthenticateStart(payload))
         .then((res) => {
           // eval response
-          expect(res.statusCode).to.exist.and.eql(400)
+          expect(res.statusCode).to.exist.and.eql(500)
           expect(res).to.exist.and.eql(fix.keyAuthenticateStart.output[5])
         })
         .then(() => {
@@ -617,7 +617,7 @@ describe('U2F Key | API Responses', function() {
       Promise.resolve(api.keyAuthenticateStart(payload))
         .then((res) => {
           // eval response
-          expect(res.statusCode).to.exist.and.eql(400)
+          expect(res.statusCode).to.exist.and.eql(500)
           expect(res).to.exist.and.eql(fix.keyAuthenticateStart.output[5])
         })
         .then(() => {
@@ -806,7 +806,7 @@ describe('U2F Key | API Responses', function() {
       Promise.resolve(api.keyAuthenticateFinish(payload))
         .then((res) => {
           // eval response
-          expect(res.statusCode).to.exist.and.eql(400)
+          expect(res.statusCode).to.exist.and.eql(500)
           expect(res).to.exist.and.to.eql(fix.keyAuthenticateFinish.output[9])
         })
         .then(() => {
@@ -853,7 +853,7 @@ describe('U2F Key | API Responses', function() {
       Promise.resolve(api.keyAuthenticateFinish(payload))
         .then((res) => {
           // eval response
-          expect(res.statusCode).to.exist.and.eql(400)
+          expect(res.statusCode).to.exist.and.eql(500)
           expect(res).to.exist.and.to.eql(fix.keyAuthenticateFinish.output[9])
         })
         .then(() => {

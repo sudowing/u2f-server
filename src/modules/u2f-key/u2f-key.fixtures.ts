@@ -72,7 +72,7 @@ fixtures.keyRegisterStart = {
     },
     'sample error string',
     {
-      'statusCode': 400,
+      'statusCode': 500,
       'payload': {
         'error': 'cache',
         'detail': 'sample error string'
@@ -471,14 +471,14 @@ fixtures.keyRegisterFinish = {
     },
     'sample error string',
     {
-      'statusCode': 400,
+      'statusCode': 500,
       'payload': {
         'error': 'database',
         'detail': 'sample error string'
       }
     },
     {
-      'statusCode': 400,
+      'statusCode': 500,
       'payload': {
         'error': 'cache',
         'detail': 'sample error string'
@@ -554,7 +554,7 @@ fixtures.keyRemove = {
     2,
     'sample error string',
     {
-      'statusCode': 400,
+      'statusCode': 500,
       'payload': {
         'error': 'database',
         'detail': 'sample error string'
@@ -619,7 +619,7 @@ fixtures.keyAuthenticateStart = {
     ],
     'sample error string',
     {
-      'statusCode': 400,
+      'statusCode': 500,
       'payload': {
         'error': 'datastore',
         'detail': 'sample error string'
@@ -706,7 +706,7 @@ fixtures.keyAuthenticateFinish = {
     },
     'sample error string',
     {
-      'statusCode': 400,
+      'statusCode': 500,
       'payload': {
         'error': 'datastore',
         'detail': 'sample error string'

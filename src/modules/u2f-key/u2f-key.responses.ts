@@ -45,7 +45,7 @@ export class U2FResponseGenerator extends BaseResponseGenerator {
           return this.genServerResponse(registrationRequest)
         })
         .catch(err => {
-          return this.genServerResponse(this.genError('cache', err), 400)
+          return this.genServerResponse(this.genError('cache', err), 500)
         })
     }
   }
@@ -92,7 +92,7 @@ export class U2FResponseGenerator extends BaseResponseGenerator {
                 return this.genServerResponse(record)
               })
               .catch(err => {
-                return this.genServerResponse(this.genError('database', err), 400)
+                return this.genServerResponse(this.genError('database', err), 500)
               })
           }
           else {
@@ -100,7 +100,7 @@ export class U2FResponseGenerator extends BaseResponseGenerator {
           }
         })
         .catch(err => {
-          return this.genServerResponse(this.genError('cache', err), 400)
+          return this.genServerResponse(this.genError('cache', err), 500)
         })
     }
   }
@@ -134,7 +134,7 @@ export class U2FResponseGenerator extends BaseResponseGenerator {
           return this.genServerResponse({ data: 'Record removed.' }, 200)
         })
         .catch(err => {
-          return this.genServerResponse(this.genError('database', err), 400)
+          return this.genServerResponse(this.genError('database', err), 500)
         })
     }
 
@@ -172,7 +172,7 @@ export class U2FResponseGenerator extends BaseResponseGenerator {
           return this.genServerResponse(info)
         })
         .catch(err => {
-          return this.genServerResponse(this.genError('datastore', err), 400)
+          return this.genServerResponse(this.genError('datastore', err), 500)
         })
     }
 
@@ -215,7 +215,7 @@ export class U2FResponseGenerator extends BaseResponseGenerator {
           }
         })
         .catch(err => {
-          return this.genServerResponse(this.genError('datastore', err), 400)
+          return this.genServerResponse(this.genError('datastore', err), 500)
         })
     }
 
