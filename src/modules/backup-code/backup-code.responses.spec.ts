@@ -12,7 +12,8 @@ const sandbox = sinon.createSandbox()
 describe('Backup Code | API Responses', function() {
 
   beforeEach(function() {
-
+    sandbox.spy(api, 'validatePayload')    
+    sandbox.spy(api, '_validatePayload')
   })
 
   afterEach(function () {
@@ -41,7 +42,6 @@ describe('Backup Code | API Responses', function() {
 
   describe('codeRegister', function() {
     it('validates input | bad payload', (done) => {
-      sandbox.spy(api, 'validatePayload')
       let payload = {}
 
       Promise.resolve(api.codeRegister(payload))
@@ -52,7 +52,15 @@ describe('Backup Code | API Responses', function() {
         .then(() => {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
-          sinon.assert.calledWith(api.validatePayload, payload, fix.codeRegister.input[0])
+          sinon.assert.calledWith(api.validatePayload, payload)
+
+          // eval stubs & spies
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
+            fix.codeRegister.input[0]
+          )
+
+
         })
         .then(done).catch(done)
     })
@@ -107,7 +115,6 @@ describe('Backup Code | API Responses', function() {
     })
 
     it('validates input | bad payload', (done) => {
-      sandbox.spy(api, 'validatePayload')
       // api.data.read.byU2fIdCode(payload.appId, payload.account, payload.code) // stubThis
       // api.data.delete.byUuid(dbResponse[0].uuid) // stubThis
 
@@ -122,6 +129,14 @@ describe('Backup Code | API Responses', function() {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.codeAuthenticate.input[0])
+
+          // eval stubs & spies
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
+            fix.codeAuthenticate.input[1]
+          )
+
+
         })
         .then(done).catch(done)
     })
@@ -131,7 +146,7 @@ describe('Backup Code | API Responses', function() {
       sandbox.stub(api.data.read, 'byU2fIdCode')
         .returns(Bluebird.resolve([]))
 
-      Promise.resolve(api.codeAuthenticate(fix.codeAuthenticate.input[1]))
+      Promise.resolve(api.codeAuthenticate(fix.codeAuthenticate.input[2]))
         .then((res) => {
           // eval response
           expect(res.statusCode).to.exist.and.eql(400)
@@ -156,7 +171,7 @@ describe('Backup Code | API Responses', function() {
       sandbox.stub(api.data.delete, 'byUuid')
         .returns(Bluebird.resolve(fix.codeAuthenticate.output[3]))
 
-      Promise.resolve(api.codeAuthenticate(fix.codeAuthenticate.input[2]))
+      Promise.resolve(api.codeAuthenticate(fix.codeAuthenticate.input[3]))
         .then((res) => {
           // eval response
           expect(res).to.exist
@@ -189,7 +204,7 @@ describe('Backup Code | API Responses', function() {
       sandbox.stub(api.data.delete, 'byUuid')
         .returns(Bluebird.resolve(fix.codeAuthenticate.output[3]))
 
-      Promise.resolve(api.codeAuthenticate(fix.codeAuthenticate.input[2]))
+      Promise.resolve(api.codeAuthenticate(fix.codeAuthenticate.input[3]))
         .then((res) => {
           // eval response
           expect(res).to.exist
@@ -210,7 +225,7 @@ describe('Backup Code | API Responses', function() {
       sandbox.stub(api.data.delete, 'byUuid')
         .returns(Bluebird.reject(fix.codeAuthenticate.output[4]))
 
-      Promise.resolve(api.codeAuthenticate(fix.codeAuthenticate.input[2]))
+      Promise.resolve(api.codeAuthenticate(fix.codeAuthenticate.input[3]))
         .then((res) => {
           // eval response
           expect(res).to.exist

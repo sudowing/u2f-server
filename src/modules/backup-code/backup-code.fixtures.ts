@@ -80,6 +80,9 @@ fixtures.codeRegister = {
 fixtures.codeAuthenticate = {
   input: [
     [
+      { prop: 'code', positive: true }
+    ],
+    [
       { prop: 'appId', positive: true },
       { prop: 'account', positive: true },
       { prop: 'secret', positive: true },

@@ -28,15 +28,8 @@ export class BackupCodeResponseGenerator extends BaseResponseGenerator {
 
   codeRegister(payload) {
 
-    // validation specs
-    const specs = [
-      { prop: 'appId', positive: true },
-      { prop: 'account', positive: true },
-      { prop: 'secret', positive: true }
-    ]
-
     // validation process
-    const validation = this.validatePayload(payload, specs)
+    const validation = this.validatePayload(payload)
 
     // handle invalid
     if (!validation.valid) {
@@ -82,9 +75,6 @@ export class BackupCodeResponseGenerator extends BaseResponseGenerator {
 
     // validation specs
     const specs = [
-      { prop: 'appId', positive: true },
-      { prop: 'account', positive: true },
-      { prop: 'secret', positive: true },
       { prop: 'code', positive: true }
     ]
 
