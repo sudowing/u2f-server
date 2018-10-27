@@ -48,9 +48,6 @@ export class OTPResponseGenerator extends BaseResponseGenerator {
 
     // validation specs
     const specs = [
-      { prop: 'appId', positive: true },
-      { prop: 'account', positive: true },
-      { prop: 'secret', positive: true },
       { prop: 'type' }
     ]
 
@@ -92,9 +89,6 @@ export class OTPResponseGenerator extends BaseResponseGenerator {
 
     // validation specs
     const specs = [
-      { prop: 'appId', positive: true },
-      { prop: 'account', positive: true },
-      { prop: 'secret', positive: true },
       { prop: 'token', positive: true },
       { prop: 'type' },
       { prop: 'nickname' }
@@ -147,9 +141,6 @@ export class OTPResponseGenerator extends BaseResponseGenerator {
 
     // validation specs
     const specs = [
-      { prop: 'appId', positive: true },
-      { prop: 'account', positive: true },
-      { prop: 'secret', positive: true },
       { prop: 'uuid', positive: true },
     ]
 
@@ -181,9 +172,6 @@ export class OTPResponseGenerator extends BaseResponseGenerator {
 
     // validation specs
     const specs = [
-      { prop: 'appId', positive: true },
-      { prop: 'account', positive: true },
-      { prop: 'secret', positive: true },
       { prop: 'token', positive: true }
     ]
 

@@ -32,7 +32,10 @@ fixtures.otpRegisterStart = {
       secret: 'secret',
       type: null
     },
-    null
+    null,
+    [
+      { prop: 'type' }
+    ]
   ],
   output: [
     {
@@ -109,7 +112,12 @@ fixtures.otpRegisterFinish = {
       type: null,
       nickname: 'nickname'
     },
-    'sdsdfds'
+    'sdsdfds',
+    [
+      { prop: 'token', positive: true },
+      { prop: 'type' },
+      { prop: 'nickname' }
+    ]
   ],
   output: [
     {
@@ -194,7 +202,10 @@ fixtures.otpRemove = {
       account: 'batman',
       secret: 'secret',
       uuid: '06a8c09a-0657-40d5-9891-adf0c488864b'
-    }
+    },
+    [
+      { prop: 'uuid', positive: true }
+    ]
   ],
   output: [
     {
@@ -272,7 +283,10 @@ fixtures.otpAuthenticate = {
       account: 'robot',
       secret: 'secret',
       token: '123456'
-    }
+    },
+    [
+      { prop: 'token', positive: true }
+    ]
   ],
   output: [
     {
