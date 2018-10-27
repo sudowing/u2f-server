@@ -77,11 +77,11 @@ export class OTPResponseGenerator extends BaseResponseGenerator {
               return this.genServerResponse(info)
             })
             .catch(err => {
-              return this.genServerResponse(this.genError('qrcode', err), 400)
+              return this.genServerResponse(this.genError('qrcode', err), 500)
             })
         })
         .catch(err => {
-          return this.genServerResponse(this.genError('cache', err), 400)
+          return this.genServerResponse(this.genError('cache', err), 500)
         })
 
     }
@@ -129,7 +129,7 @@ export class OTPResponseGenerator extends BaseResponseGenerator {
                 return this.genServerResponse(info)
               })
               .catch(err => {
-                return this.genServerResponse(this.genError('database', err), 400)
+                return this.genServerResponse(this.genError('database', err), 500)
               })
           }
           const msg = 'registration failed: token failed otp check'
@@ -137,7 +137,7 @@ export class OTPResponseGenerator extends BaseResponseGenerator {
 
         })
         .catch(err => {
-          return this.genServerResponse(this.genError('cache', err), 400)
+          return this.genServerResponse(this.genError('cache', err), 500)
         })
     }
 
@@ -171,7 +171,7 @@ export class OTPResponseGenerator extends BaseResponseGenerator {
           return this.genServerResponse({ data: 'Record removed.' }, 200)
         })
         .catch(err => {
-          return this.genServerResponse(this.genError('database', err), 400)
+          return this.genServerResponse(this.genError('database', err), 500)
         })
     }
 
@@ -213,7 +213,7 @@ export class OTPResponseGenerator extends BaseResponseGenerator {
 
         })
         .catch(err => {
-          return this.genServerResponse(this.genError('database', err), 400)
+          return this.genServerResponse(this.genError('database', err), 500)
         })
     }
   }

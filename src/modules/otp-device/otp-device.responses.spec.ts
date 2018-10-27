@@ -114,7 +114,7 @@ describe('One-Time Password | API Responses', function() {
       Promise.resolve(api.otpRegisterStart(payload))
         .then((res) => {
           // eval response
-          expect(res.statusCode).to.exist.and.eql(400)
+          expect(res.statusCode).to.exist.and.eql(500)
           expect(res).to.exist.and.eql(fix.otpRegisterStart.output[7])
         })
         .then(() => {
@@ -163,7 +163,7 @@ describe('One-Time Password | API Responses', function() {
       Promise.resolve(api.otpRegisterStart(payload))
         .then((res) => {
           // eval response
-          expect(res.statusCode).to.exist.and.eql(400)
+          expect(res.statusCode).to.exist.and.eql(500)
           expect(res).to.exist.and.eql(fix.otpRegisterStart.output[8])
         })
         .then(() => {
@@ -287,7 +287,7 @@ describe('One-Time Password | API Responses', function() {
       Promise.resolve(api.otpRegisterFinish(payload))
         .then((res) => {
           // eval response
-          expect(res.statusCode).to.exist.and.eql(400)
+          expect(res.statusCode).to.exist.and.eql(500)
           expect(res).to.exist.and.eql(fix.otpRegisterFinish.output[6])
         })
         .then(() => {
@@ -330,7 +330,7 @@ describe('One-Time Password | API Responses', function() {
       Promise.resolve(api.otpRegisterFinish(payload))
         .then((res) => {
           // eval response
-          expect(res.statusCode).to.exist.and.eql(400)
+          expect(res.statusCode).to.exist.and.eql(500)
           expect(res).to.exist.and.eql(fix.otpRegisterFinish.output[7])
         })
         .then(() => {
@@ -535,7 +535,7 @@ describe('One-Time Password | API Responses', function() {
       Promise.resolve(api.otpRemove(payload))
         .then((res) => {
           // eval response
-          expect(res.statusCode).to.exist.and.eql(400)
+          expect(res.statusCode).to.exist.and.eql(500)
           expect(res).to.exist.and.eql(fix.otpRemove.output[7])
         })
         .then(() => {
@@ -693,7 +693,7 @@ describe('One-Time Password | API Responses', function() {
       Promise.resolve(api.otpAuthenticate(payload))
         .then((res) => {
           // eval response
-          expect(res.statusCode).to.exist.and.eql(400)
+          expect(res.statusCode).to.exist.and.eql(500)
           expect(res).to.exist.and.eql(fix.otpAuthenticate.output[6])
         })
         .then(() => {

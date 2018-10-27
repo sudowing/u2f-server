@@ -75,14 +75,14 @@ fixtures.otpRegisterStart = {
     },
     'sample error string',
     {
-      'statusCode': 400,
+      'statusCode': 500,
       'payload': {
         'error': 'cache',
         'detail': 'sample error string'
       }
     },
     {
-      'statusCode': 400,
+      'statusCode': 500,
       'payload': {
         'error': 'qrcode',
         'detail': 'sample error string'
@@ -155,14 +155,14 @@ fixtures.otpRegisterFinish = {
     },
     'sample error string',
     {
-      'statusCode': 400,
+      'statusCode': 500,
       'payload': {
         'error': 'cache',
         'detail': 'sample error string'
       }
     },
     {
-      'statusCode': 400,
+      'statusCode': 500,
       'payload': {
         'error': 'database',
         'detail': 'sample error string'
@@ -239,7 +239,7 @@ fixtures.otpRemove = {
     2,
     'sample error string',
     {
-      'statusCode': 400,
+      'statusCode': 500,
       'payload': {
         'error': 'database',
         'detail': 'sample error string'
@@ -316,7 +316,7 @@ fixtures.otpAuthenticate = {
     },
     'sample error string',
     {
-      'statusCode': 400,
+      'statusCode': 500,
       'payload': {
         'error': 'database',
         'detail': 'sample error string'
@@ -399,7 +399,7 @@ fixtures.otpStatus = {
     },
     'sample error string',
     {
-      'statusCode': 400,
+      'statusCode': 500,
       'payload': {
         'error': 'database',
         'detail': 'sample error string'
