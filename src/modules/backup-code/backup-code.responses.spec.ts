@@ -86,7 +86,7 @@ describe('Backup Code | API Responses', function() {
       Promise.resolve(api.codeRegister(fix.codeRegister.input[1]))
         .then((res) => {
           // eval response
-          expect(res.statusCode).to.exist.and.eql(400)
+          expect(res.statusCode).to.exist.and.eql(500)
           expect(res).to.exist.and.eql(fix.codeRegister.output[3])
         })
         .then(() => {
@@ -193,7 +193,7 @@ describe('Backup Code | API Responses', function() {
         .then((res) => {
           // eval response
           expect(res).to.exist
-          expect(res.statusCode).to.exist.and.eql(400)
+          expect(res.statusCode).to.exist.and.eql(500)
           expect(res).to.exist.and.eql(fix.codeAuthenticate.output[5])
         })
         .then(() => {
@@ -214,7 +214,7 @@ describe('Backup Code | API Responses', function() {
         .then((res) => {
           // eval response
           expect(res).to.exist
-          expect(res.statusCode).to.exist.and.eql(400)
+          expect(res.statusCode).to.exist.and.eql(500)
           expect(res).to.exist.and.eql(fix.codeAuthenticate.output[5])
           // expect(res.payload.jwt).to.exist.and.to.be.a('string')
           // // ensure it is a jwt

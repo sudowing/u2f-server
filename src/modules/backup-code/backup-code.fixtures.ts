@@ -67,7 +67,7 @@ fixtures.codeRegister = {
     true,
     'sample error string',
     {
-      'statusCode': 400,
+      'statusCode': 500,
       'payload': {
         'error': 'database',
         'detail': 'sample error string'
@@ -133,7 +133,7 @@ fixtures.codeAuthenticate = {
     true,
     'sample error string',
     {
-      'statusCode': 400,
+      'statusCode': 500,
       'payload': {
         'error': 'database',
         'detail': 'sample error string'

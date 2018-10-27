@@ -71,7 +71,7 @@ export class BackupCodeResponseGenerator extends BaseResponseGenerator {
           return this.genServerResponse(info)
         })
         .catch(err => {
-          return this.genServerResponse(this.genError('database', err), 400)
+          return this.genServerResponse(this.genError('database', err), 500)
         })
 
     }
@@ -110,14 +110,14 @@ export class BackupCodeResponseGenerator extends BaseResponseGenerator {
                 return this.genServerResponse(this.genAuthSuccess(u2fid))
               })
               .catch(err => {
-                return this.genServerResponse(this.genError('database', err), 400)
+                return this.genServerResponse(this.genError('database', err), 500)
               })
           }
           return this.genServerResponse(this.genAuthError(u2fid), 400)
 
         })
         .catch(err => {
-          return this.genServerResponse(this.genError('database', err), 400)
+          return this.genServerResponse(this.genError('database', err), 500)
         })
     }
 
