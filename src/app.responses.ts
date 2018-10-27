@@ -11,15 +11,8 @@ export class AppResponseGenerator extends BaseResponseGenerator {
 
   mfaStatus(payload) {
 
-    // validation specs
-    const specs = [
-      { prop: 'appId', positive: true },
-      { prop: 'account', positive: true },
-      { prop: 'secret', positive: true }
-    ]
-
     // validation process
-    const validation = this.validatePayload(payload, specs)
+    const validation = this.validatePayload(payload)
 
     // handle invalid
     if (!validation.valid) {
@@ -54,16 +47,9 @@ export class AppResponseGenerator extends BaseResponseGenerator {
   }
 
   mfaLogs(payload) {
-
-    // validation specs
-    const specs = [
-      { prop: 'appId', positive: true },
-      { prop: 'account', positive: true },
-      { prop: 'secret', positive: true }
-    ]
-
+    
     // validation process
-    const validation = this.validatePayload(payload, specs)
+    const validation = this.validatePayload(payload)
 
     // handle invalid
     if (!validation.valid) {
