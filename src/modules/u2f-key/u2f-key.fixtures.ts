@@ -87,8 +87,8 @@ fixtures.keyRegisterFinish = {
     [
       { prop: 'appId', positive: true },
       { prop: 'account', positive: true },
-      { prop: 'registrationResponse', positive: true },
       { prop: 'secret', positive: true },
+      { prop: 'registrationResponse', positive: true },
       { prop: 'nickname' }
     ],
     {
@@ -103,7 +103,11 @@ fixtures.keyRegisterFinish = {
         clientData: 'eyJ0eXAiOiJuYXZpZ2F0b3IuaWQuZmluaXNoRW5yb2xsbWVudCIsImNoYWxsZW5nZSI6IkY0cGJRNmU4M2lUT3ZHMVFjbTg5Ni1Ec2Fmb01qS0NFazJtemZIclB4UU0iLCJvcmlnaW4iOiJodHRwczovL2V4YW1wbGUuY29tIiwiY2lkX3B1YmtleSI6InVudXNlZCJ9'
       },
       nickname: 'nickname'
-    }
+    },
+    [
+      { prop: 'registrationResponse', positive: true },
+      { prop: 'nickname' }
+    ]
 
   ],
   output: [
@@ -121,11 +125,11 @@ fixtures.keyRegisterFinish = {
             message: 'Field Required'
           },
           {
-            prop: 'registrationResponse',
+            prop: 'secret',
             message: 'Field Required'
           },
           {
-            prop: 'secret',
+            prop: 'registrationResponse',
             message: 'Field Required'
           },
           {
@@ -509,7 +513,10 @@ fixtures.keyRemove = {
       account: 'batman',
       secret: 'secret',
       uuid: '06a8c09a-0657-40d5-9891-adf0c488864b'
-    }
+    },
+    [
+      { prop: 'uuid', positive: true }
+    ]
   ],
   output: [
     {
@@ -646,7 +653,10 @@ fixtures.keyAuthenticateFinish = {
         clientData: 'eyJ0eXAiOiJuYXZpZ2F0b3IuaWQuZ2V0QXNzZXJ0aW9uIiwiY2hhbGxlbmdlIjoiTmM2dDNSMTFhN3h1OGc5NGU4SzJ6aWM2dm1ZUE5hajFrVlJOdllEWjQwMCIsIm9yaWdpbiI6Imh0dHBzOi8vZXhhbXBsZS5jb20iLCJjaWRfcHVia2V5IjoidW51c2VkIn0',
         signatureData: 'AQAAANswRQIhAOi2sR4BGdLf1ZpaNCY8zDKRCOdq2PDUCDTWa928JaqUAiBqkfHDGmc0KlxVWPNZ_Z9L4-SylcYOxxx9lTj6alrkhA'
       }
-    }
+    },
+    [
+      { prop: 'registrationResponse', positive: true }
+    ]
   ],
   output: [
     {

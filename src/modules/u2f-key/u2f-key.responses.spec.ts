@@ -11,7 +11,8 @@ const sandbox = sinon.createSandbox()
 describe('U2F Key | API Responses', function() {
 
   beforeEach(function() {
-
+    sandbox.spy(api, 'validatePayload')
+    sandbox.spy(api, '_validatePayload')
   })
 
   afterEach(function () {
@@ -28,7 +29,6 @@ describe('U2F Key | API Responses', function() {
 
   describe('keyRegisterStart', function() {
     it('validates input | bad payload', (done) => {
-      sandbox.spy(api, 'validatePayload')
       let payload = {}
 
       Promise.resolve(api.keyRegisterStart(payload))
@@ -39,13 +39,18 @@ describe('U2F Key | API Responses', function() {
         .then(() => {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
-          sinon.assert.calledWith(api.validatePayload, payload, fix.keyRegisterStart.input[0])
+          sinon.assert.calledWith(api.validatePayload, payload)
+
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
+            fix.keyRegisterStart.input[0]
+          )
+
         })
         .then(done).catch(done)
     })
 
     it('serves correct api responses', (done) => {
-      sandbox.spy(api, 'validatePayload')
       sandbox.stub(api.u2f, 'request')
         .returns(fix.keyRegisterStart.output[1])
       sandbox.stub(api.cache, 'set')
@@ -62,8 +67,10 @@ describe('U2F Key | API Responses', function() {
         .then(() => {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
-          sinon.assert.calledWith(api.validatePayload,
-            payload,
+          sinon.assert.calledWith(api.validatePayload, payload)
+
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
             fix.keyRegisterStart.input[0]
           )
 
@@ -86,7 +93,6 @@ describe('U2F Key | API Responses', function() {
     })
 
     it('error | cache', (done) => {
-      sandbox.spy(api, 'validatePayload')
       sandbox.stub(api.u2f, 'request')
         .returns(fix.keyRegisterStart.output[1])
       sandbox.stub(api.cache, 'set')
@@ -104,8 +110,10 @@ describe('U2F Key | API Responses', function() {
         .then(() => {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
-          sinon.assert.calledWith(api.validatePayload,
-            payload,
+          sinon.assert.calledWith(api.validatePayload, payload)
+
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
             fix.keyRegisterStart.input[0]
           )
 
@@ -131,7 +139,6 @@ describe('U2F Key | API Responses', function() {
 
   describe('keyRegisterFinish', function() {
     it('validates input | bad payload', (done) => {
-      sandbox.spy(api, 'validatePayload')
 
       let payload = {}
 
@@ -141,15 +148,22 @@ describe('U2F Key | API Responses', function() {
           expect(res).to.exist.and.eql(fix.keyRegisterFinish.output[0])
         })
         .then(() => {
+
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
-          sinon.assert.calledWith(api.validatePayload, payload, fix.keyRegisterFinish.input[0])
+          sinon.assert.calledWith(api.validatePayload, payload, fix.keyRegisterFinish.input[2])
+
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
+            fix.keyRegisterFinish.input[0]
+          )
+
+
         })
         .then(done).catch(done)
     })
 
     it('serves correct api responses', (done) => {
-      sandbox.spy(api, 'validatePayload')
       sandbox.stub(api.cache, 'get')
         .returns(Promise.resolve(fix.keyRegisterFinish.output[1]))
       sandbox.stub(api.u2f, 'checkRegistration')
@@ -168,10 +182,13 @@ describe('U2F Key | API Responses', function() {
         .then(() => {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
-          sinon.assert.calledWith(api.validatePayload,
-            payload,
+          sinon.assert.calledWith(api.validatePayload, payload, fix.keyRegisterFinish.input[2])
+
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
             fix.keyRegisterFinish.input[0]
           )
+
           const u2fid = api.genU2fId(payload.appId, payload.account, payload.secret)
 
           const cacheKey = `u2f.reg.${u2fid}`
@@ -196,7 +213,6 @@ describe('U2F Key | API Responses', function() {
     })
 
     it('error | cache', (done) => {
-      sandbox.spy(api, 'validatePayload')
       sandbox.stub(api.cache, 'get')
         .returns(Promise.reject(fix.keyRegisterFinish.output[5]))
       sandbox.stub(api.u2f, 'checkRegistration')
@@ -216,10 +232,13 @@ describe('U2F Key | API Responses', function() {
         .then(() => {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
-          sinon.assert.calledWith(api.validatePayload,
-            payload,
+          sinon.assert.calledWith(api.validatePayload, payload, fix.keyRegisterFinish.input[2])
+
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
             fix.keyRegisterFinish.input[0]
           )
+
           const u2fid = api.genU2fId(payload.appId, payload.account, payload.secret)
 
           const cacheKey = `u2f.reg.${u2fid}`
@@ -235,7 +254,6 @@ describe('U2F Key | API Responses', function() {
     })
 
     it('error | database', (done) => {
-      sandbox.spy(api, 'validatePayload')
       sandbox.stub(api.cache, 'get')
         .returns(Promise.resolve(fix.keyRegisterFinish.output[1]))
       sandbox.stub(api.u2f, 'checkRegistration')
@@ -254,10 +272,13 @@ describe('U2F Key | API Responses', function() {
         .then(() => {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
-          sinon.assert.calledWith(api.validatePayload,
-            payload,
+          sinon.assert.calledWith(api.validatePayload, payload, fix.keyRegisterFinish.input[2])
+
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
             fix.keyRegisterFinish.input[0]
           )
+
           const u2fid = api.genU2fId(payload.appId, payload.account, payload.secret)
 
           const cacheKey = `u2f.reg.${u2fid}`
@@ -282,7 +303,6 @@ describe('U2F Key | API Responses', function() {
     })
 
     it('error | registration', (done) => {
-      sandbox.spy(api, 'validatePayload')
       sandbox.stub(api.cache, 'get')
         .returns(Promise.resolve(fix.keyRegisterFinish.output[1]))
       sandbox.stub(api.u2f, 'checkRegistration')
@@ -301,10 +321,13 @@ describe('U2F Key | API Responses', function() {
         .then(() => {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
-          sinon.assert.calledWith(api.validatePayload,
-            payload,
+          sinon.assert.calledWith(api.validatePayload, payload, fix.keyRegisterFinish.input[2])
+
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
             fix.keyRegisterFinish.input[0]
           )
+
           const u2fid = api.genU2fId(payload.appId, payload.account, payload.secret)
 
           const cacheKey = `u2f.reg.${u2fid}`
@@ -334,7 +357,6 @@ describe('U2F Key | API Responses', function() {
 
   describe('keyRemove', function() {
     it('validates input | bad payload', (done) => {
-      sandbox.spy(api, 'validatePayload')
       let payload = {}
 
       Promise.resolve(api.keyRemove(payload))
@@ -345,13 +367,19 @@ describe('U2F Key | API Responses', function() {
         .then(() => {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
-          sinon.assert.calledWith(api.validatePayload, payload, fix.keyRemove.input[0])
+          sinon.assert.calledWith(api.validatePayload, payload, fix.keyRemove.input[2])
+
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
+            fix.keyRemove.input[0]
+          )
+
+
         })
         .then(done).catch(done)
     })
 
     it('serves correct api responses | record does not exists (no records)', (done) => {
-      sandbox.spy(api, 'validatePayload')
       sandbox.stub(api.data.delete, 'byU2fIdUuid')
         .returns(Promise.resolve(fix.keyRemove.output[3]))
 
@@ -365,8 +393,10 @@ describe('U2F Key | API Responses', function() {
         .then(() => {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
-          sinon.assert.calledWith(api.validatePayload,
-            payload,
+          sinon.assert.calledWith(api.validatePayload, payload, fix.keyRemove.input[2])
+
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
             fix.keyRemove.input[0]
           )
 
@@ -382,7 +412,6 @@ describe('U2F Key | API Responses', function() {
     })
 
     it('serves correct api responses | record does not exists (multiple records)', (done) => {
-      sandbox.spy(api, 'validatePayload')
       sandbox.stub(api.data.delete, 'byU2fIdUuid')
         .returns(Promise.resolve(fix.keyRemove.output[5]))
 
@@ -396,8 +425,10 @@ describe('U2F Key | API Responses', function() {
         .then(() => {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
-          sinon.assert.calledWith(api.validatePayload,
-            payload,
+          sinon.assert.calledWith(api.validatePayload, payload, fix.keyRemove.input[2])
+
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
             fix.keyRemove.input[0]
           )
 
@@ -413,7 +444,6 @@ describe('U2F Key | API Responses', function() {
     })
 
     it('serves correct api responses', (done) => {
-      sandbox.spy(api, 'validatePayload')
       sandbox.stub(api.data.delete, 'byU2fIdUuid')
         .returns(Promise.resolve(fix.keyRemove.output[1]))
 
@@ -427,8 +457,10 @@ describe('U2F Key | API Responses', function() {
         .then(() => {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
-          sinon.assert.calledWith(api.validatePayload,
-            payload,
+          sinon.assert.calledWith(api.validatePayload, payload, fix.keyRemove.input[2])
+
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
             fix.keyRemove.input[0]
           )
 
@@ -444,7 +476,6 @@ describe('U2F Key | API Responses', function() {
     })
 
     it('error | database', (done) => {
-      sandbox.spy(api, 'validatePayload')
       sandbox.stub(api.data.delete, 'byU2fIdUuid')
         .returns(Promise.reject(fix.keyRemove.output[6]))
 
@@ -459,8 +490,10 @@ describe('U2F Key | API Responses', function() {
         .then(() => {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
-          sinon.assert.calledWith(api.validatePayload,
-            payload,
+          sinon.assert.calledWith(api.validatePayload, payload, fix.keyRemove.input[2])
+
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
             fix.keyRemove.input[0]
           )
 
@@ -480,7 +513,6 @@ describe('U2F Key | API Responses', function() {
 
   describe('keyAuthenticateStart', function() {
     it('validates input | bad payload', (done) => {
-      sandbox.spy(api, 'validatePayload')
       let payload = {}
 
       Promise.resolve(api.keyAuthenticateStart(payload))
@@ -491,13 +523,18 @@ describe('U2F Key | API Responses', function() {
         .then(() => {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
-          sinon.assert.calledWith(api.validatePayload, payload, fix.keyAuthenticateStart.input[0])
+          sinon.assert.calledWith(api.validatePayload, payload)
+
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
+            fix.keyAuthenticateStart.input[0]
+          )
+
         })
         .then(done).catch(done)
     })
 
     it('serves correct api responses', (done) => {
-      sandbox.spy(api, 'validatePayload')
       sandbox.stub(api.data.read, 'byU2fId')
         .returns(Promise.resolve(fix.keyAuthenticateStart.output[3]))
       sandbox.stub(api.u2f, 'request')
@@ -519,8 +556,10 @@ describe('U2F Key | API Responses', function() {
         .then(() => {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
-          sinon.assert.calledWith(api.validatePayload,
-            payload,
+          sinon.assert.calledWith(api.validatePayload, payload)
+
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
             fix.keyAuthenticateStart.input[0]
           )
 
@@ -551,7 +590,6 @@ describe('U2F Key | API Responses', function() {
     })
 
     it('error | datastore [cache]', (done) => {
-      sandbox.spy(api, 'validatePayload')
       sandbox.stub(api.data.read, 'byU2fId')
         .returns(Promise.resolve(fix.keyAuthenticateStart.output[3]))
       sandbox.stub(api.u2f, 'request')
@@ -571,8 +609,10 @@ describe('U2F Key | API Responses', function() {
         .then(() => {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
-          sinon.assert.calledWith(api.validatePayload,
-            payload,
+          sinon.assert.calledWith(api.validatePayload, payload)
+
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
             fix.keyAuthenticateStart.input[0]
           )
 
@@ -603,7 +643,6 @@ describe('U2F Key | API Responses', function() {
     })
 
     it('error | datastore [database]', (done) => {
-      sandbox.spy(api, 'validatePayload')
       sandbox.stub(api.data.read, 'byU2fId')
         .returns(Promise.reject(fix.keyAuthenticateStart.output[4]))
       sandbox.stub(api.u2f, 'request')
@@ -623,8 +662,10 @@ describe('U2F Key | API Responses', function() {
         .then(() => {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
-          sinon.assert.calledWith(api.validatePayload,
-            payload,
+          sinon.assert.calledWith(api.validatePayload, payload)
+
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
             fix.keyAuthenticateStart.input[0]
           )
 
@@ -665,7 +706,6 @@ describe('U2F Key | API Responses', function() {
     })
 
     it('validates input | bad payload', (done) => {
-      sandbox.spy(api, 'validatePayload')
       let payload = {}
 
       Promise.resolve(api.keyAuthenticateFinish(payload))
@@ -676,13 +716,18 @@ describe('U2F Key | API Responses', function() {
         .then(() => {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
-          sinon.assert.calledWith(api.validatePayload, payload, fix.keyAuthenticateFinish.input[0])
+          sinon.assert.calledWith(api.validatePayload, payload, fix.keyAuthenticateFinish.input[2])
+
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
+            fix.keyAuthenticateFinish.input[0]
+          )
+
         })
         .then(done).catch(done)
     })
 
     it('serves correct api responses | AuthError', (done) => {
-      sandbox.spy(api, 'validatePayload')
       sandbox.stub(api.data.read, 'byU2fIdKeyhandle')
         .returns(Promise.resolve(fix.keyAuthenticateFinish.output[3]))
       sandbox.stub(api.cache, 'get')
@@ -700,8 +745,10 @@ describe('U2F Key | API Responses', function() {
         .then(() => {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
-          sinon.assert.calledWith(api.validatePayload,
-            payload,
+          sinon.assert.calledWith(api.validatePayload, payload, fix.keyAuthenticateFinish.input[2])
+
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
             fix.keyAuthenticateFinish.input[0]
           )
 
@@ -737,7 +784,6 @@ describe('U2F Key | API Responses', function() {
 
 
     it('serves correct api responses', (done) => {
-      sandbox.spy(api, 'validatePayload')
       sandbox.stub(api.data.read, 'byU2fIdKeyhandle')
         .returns(Promise.resolve(fix.keyAuthenticateFinish.output[3]))
       sandbox.stub(api.cache, 'get')
@@ -756,8 +802,10 @@ describe('U2F Key | API Responses', function() {
         .then(() => {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
-          sinon.assert.calledWith(api.validatePayload,
-            payload,
+          sinon.assert.calledWith(api.validatePayload, payload, fix.keyAuthenticateFinish.input[2])
+
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
             fix.keyAuthenticateFinish.input[0]
           )
 
@@ -793,7 +841,6 @@ describe('U2F Key | API Responses', function() {
     })
 
     it('error | datastore [cache]', (done) => {
-      sandbox.spy(api, 'validatePayload')
       sandbox.stub(api.data.read, 'byU2fIdKeyhandle')
         .returns(Promise.resolve(fix.keyAuthenticateFinish.output[3]))
       sandbox.stub(api.cache, 'get')
@@ -812,8 +859,10 @@ describe('U2F Key | API Responses', function() {
         .then(() => {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
-          sinon.assert.calledWith(api.validatePayload,
-            payload,
+          sinon.assert.calledWith(api.validatePayload, payload, fix.keyAuthenticateFinish.input[2])
+
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
             fix.keyAuthenticateFinish.input[0]
           )
 
@@ -840,7 +889,6 @@ describe('U2F Key | API Responses', function() {
     })
 
     it('error | datastore [database]', (done) => {
-      sandbox.spy(api, 'validatePayload')
       sandbox.stub(api.data.read, 'byU2fIdKeyhandle')
         .returns(Promise.reject(fix.keyAuthenticateFinish.output[8]))
       sandbox.stub(api.cache, 'get')
@@ -859,8 +907,10 @@ describe('U2F Key | API Responses', function() {
         .then(() => {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
-          sinon.assert.calledWith(api.validatePayload,
-            payload,
+          sinon.assert.calledWith(api.validatePayload, payload, fix.keyAuthenticateFinish.input[2])
+
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
             fix.keyAuthenticateFinish.input[0]
           )
 

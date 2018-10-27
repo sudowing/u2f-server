@@ -19,15 +19,8 @@ export class U2FResponseGenerator extends BaseResponseGenerator {
 
   keyRegisterStart(payload): Bluebird<ServerResponse> {
 
-    // validation specs
-    const specs = [
-      { prop: 'appId', positive: true },
-      { prop: 'account', positive: true },
-      { prop: 'secret', positive: true }
-    ]
-
     // validation process
-    const validation = this.validatePayload(payload, specs)
+    const validation = this.validatePayload(payload)
 
     // handle invalid
     if (!validation.valid) {
@@ -54,10 +47,7 @@ export class U2FResponseGenerator extends BaseResponseGenerator {
 
     // validation specs
     const specs = [
-      { prop: 'appId', positive: true },
-      { prop: 'account', positive: true },
       { prop: 'registrationResponse', positive: true },
-      { prop: 'secret', positive: true },
       { prop: 'nickname' }
     ]
 
@@ -110,9 +100,6 @@ export class U2FResponseGenerator extends BaseResponseGenerator {
 
     // validation specs
     const specs = [
-      { prop: 'appId', positive: true },
-      { prop: 'account', positive: true },
-      { prop: 'secret', positive: true },
       { prop: 'uuid', positive: true },
     ]
 
@@ -144,15 +131,8 @@ export class U2FResponseGenerator extends BaseResponseGenerator {
 
   keyAuthenticateStart(payload) {
 
-    // validation specs
-    const specs = [
-      { prop: 'appId', positive: true },
-      { prop: 'account', positive: true },
-      { prop: 'secret', positive: true }
-    ]
-
     // validation process
-    const validation = this.validatePayload(payload, specs)
+    const validation = this.validatePayload(payload)
 
     // handle invalid
     if (!validation.valid) {
@@ -182,11 +162,7 @@ export class U2FResponseGenerator extends BaseResponseGenerator {
 
     // validation specs
     const specs = [
-      { prop: 'appId', positive: true },
-      { prop: 'account', positive: true },
-      { prop: 'secret', positive: true },
       { prop: 'registrationResponse', positive: true }
-
     ]
 
     // validation process
