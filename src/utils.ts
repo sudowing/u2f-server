@@ -15,7 +15,7 @@ interface ValidationResponse {
   problems: ValidationProblem[]
 }
 
-function validatePayload(payload, specs): ValidationResponse {
+function _validatePayload(payload, specs): ValidationResponse {
   const msg = (prop, message): ValidationProblem => ({ prop, message })
   const problems: ValidationProblem[] = []
   for (let spec of specs) {
@@ -35,7 +35,7 @@ function validatePayload(payload, specs): ValidationResponse {
 }
 
 // =====================
-// USAGE: validatePayload
+// USAGE: _validatePayload
 // =====================
 //
 // const specs = [
@@ -50,6 +50,24 @@ function validatePayload(payload, specs): ValidationResponse {
 // else {
 //   ... more handling within controller
 // }
+
+
+
+
+
+
+// defaultSpecs. defined in fn signature so it can be omitted during calls
+const defaultSpecs = []
+
+// base validation specs
+const baseSpecs = [
+  { prop: 'appId', positive: true },
+  { prop: 'account', positive: true },
+  { prop: 'secret', positive: true }
+]
+
+
+
 
 
 
@@ -129,13 +147,24 @@ export class BaseResponseGenerator {
   public _data = data
 
   constructor() { }
-  validatePayload = validatePayload
+
   genServerResponse = genServerResponse
   genError = genError
   genAuthError = genAuthError
   genAuthSuccess = genAuthSuccess
   genU2fId = genU2fId
   genNickname = genNickname
+  _validatePayload = _validatePayload
+  baseSpecs = baseSpecs
+  defaultSpecs = defaultSpecs
+
+  // wrapper around _validatePayload so to apply middleware baseSpecs to majority of responses
+  validatePayload = function(payload, specs=defaultSpecs, applyBaseSpecs=true): ValidationResponse {
+    // include/exclude base specs to route. alternative to middleware for each request.
+    const validationSpecs = applyBaseSpecs ? baseSpecs.concat(specs) : specs
+    // call to raw validation function
+    return this._validatePayload(payload, validationSpecs)
+  }
 
 }
 

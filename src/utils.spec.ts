@@ -20,23 +20,40 @@ describe('Root Level | Utilities', function() {
 
   })
 
+  
   afterEach(function () {
     sandbox.restore()
   })
 
   describe('validatePayload', function() {
 
+    beforeEach(function() {
+      sandbox.spy(api, '_validatePayload')
+    })
+
     it('prop exists', (done) => {
+
       const payload = {}
       const specs = [
         { prop: 'this' }
       ]
 
-      Promise.resolve(api.validatePayload(payload, specs))
+      // explicitly disable baseSpecs from being applied
+      Promise.resolve(api.validatePayload(payload, specs, false))
         .then((res) => {
+          // eval response
           expect(res).to.exist.and.eql(fix.validatePayload.output[0])
         })
+        .then(() => {
+          // eval stubs & spies
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
+            specs
+          )
+        })
         .then(done).catch(done)
+
+
     })
 
     it('prop exists and passes == test', (done) => {
@@ -49,9 +66,18 @@ describe('Root Level | Utilities', function() {
         { prop: 'that', positive: true }
       ]
 
-      Promise.resolve(api.validatePayload(payload, specs))
+      // explicitly disable baseSpecs from being applied
+      Promise.resolve(api.validatePayload(payload, specs, false))
         .then((res) => {
+          // eval response
           expect(res).to.exist.and.eql(fix.validatePayload.output[1])
+        })
+        .then(() => {
+          // eval stubs & spies
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
+            specs
+          )
         })
         .then(done).catch(done)
     })
@@ -68,9 +94,18 @@ describe('Root Level | Utilities', function() {
         { prop: 'other', fn: (n) => Math.pow(n, 2) === 144, fnMessage: 'Square Root must be 144' }
       ]
 
-      Promise.resolve(api.validatePayload(payload, specs))
+      // explicitly disable baseSpecs from being applied
+      Promise.resolve(api.validatePayload(payload, specs, false))
         .then((res) => {
+          // eval response
           expect(res).to.exist.and.eql(fix.validatePayload.output[2])
+        })
+        .then(() => {
+          // eval stubs & spies
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
+            specs
+          )
         })
         .then(done).catch(done)
     })
@@ -87,9 +122,18 @@ describe('Root Level | Utilities', function() {
         { prop: 'other', fn: (n) => Math.pow(n, 2) === 144, fnMessage: 'Square Root must be 144' }
       ]
 
-      Promise.resolve(api.validatePayload(payload, specs))
+      // explicitly disable baseSpecs from being applied
+      Promise.resolve(api.validatePayload(payload, specs, false))
         .then((res) => {
+          // eval response
           expect(res).to.exist.and.eql(fix.validatePayload.output[3])
+        })
+        .then(() => {
+          // eval stubs & spies
+          sinon.assert.calledOnce(api._validatePayload)
+          sinon.assert.calledWith(api._validatePayload, payload,
+            specs
+          )
         })
         .then(done).catch(done)
     })
