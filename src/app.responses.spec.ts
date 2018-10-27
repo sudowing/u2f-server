@@ -134,7 +134,7 @@ describe('Root Level | API Responses', function() {
       Promise.resolve(api.mfaStatus(payload))
         .then((res) => {
           // eval response
-          expect(res.statusCode).to.exist.and.eql(400)
+          expect(res.statusCode).to.exist.and.eql(500)
           expect(res).to.exist.and.eql(fix.mfaStatus.output[5])
         })
         .then(() => {
@@ -216,7 +216,7 @@ describe('Root Level | API Responses', function() {
       Promise.resolve(api.mfaLogs(payload))
         .then((res) => {
           // eval response
-          expect(res.statusCode).to.exist.and.eql(400)
+          expect(res.statusCode).to.exist.and.eql(500)
           expect(res).to.exist.and.eql(fix.mfaLogs.output[3])
         })
         .then(() => {

@@ -163,7 +163,7 @@ fixtures.mfaStatus = {
     },
     'sample error string',
     {
-      'statusCode': 400,
+      'statusCode': 500,
       'payload': {
         'error': 'database',
         'detail': 'sample error string'
@@ -260,7 +260,7 @@ fixtures.mfaLogs = {
     ],
     'sample error string',
     {
-      'statusCode': 400,
+      'statusCode': 500,
       'payload': {
         'error': 'database',
         'detail': 'sample error string'
