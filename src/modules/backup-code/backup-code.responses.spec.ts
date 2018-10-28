@@ -13,7 +13,6 @@ describe('Backup Code | API Responses', function() {
 
   beforeEach(function() {
     sandbox.spy(api, 'validatePayload')    
-    sandbox.spy(api, '_validatePayload')
   })
 
   afterEach(function () {
@@ -53,13 +52,6 @@ describe('Backup Code | API Responses', function() {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload)
-
-          // eval stubs & spies
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.codeRegister.input[0]
-          )
-
 
         })
         .then(done).catch(done)
@@ -129,13 +121,6 @@ describe('Backup Code | API Responses', function() {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.codeAuthenticate.input[0])
-
-          // eval stubs & spies
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.codeAuthenticate.input[1]
-          )
-
 
         })
         .then(done).catch(done)

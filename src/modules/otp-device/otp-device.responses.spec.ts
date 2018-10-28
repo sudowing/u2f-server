@@ -12,7 +12,6 @@ describe('One-Time Password | API Responses', function() {
 
   beforeEach(function() {
     sandbox.spy(api, 'validatePayload')    
-    sandbox.spy(api, '_validatePayload')
   })
 
   afterEach(function () {
@@ -38,12 +37,6 @@ describe('One-Time Password | API Responses', function() {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.otpRegisterStart.input[3])
-
-          // eval stubs & spies
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.otpRegisterStart.input[0]
-          )          
 
         })
         .then(done).catch(done)
@@ -76,12 +69,6 @@ describe('One-Time Password | API Responses', function() {
           )
 
           sinon.assert.calledWith(api.validatePayload, payload, fix.otpRegisterStart.input[3])
-
-          // eval stubs & spies
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.otpRegisterStart.input[0]
-          )               
 
           sinon.assert.calledOnce(api.authenticator.generateSecret)
 
@@ -134,12 +121,6 @@ describe('One-Time Password | API Responses', function() {
 
           sinon.assert.calledWith(api.validatePayload, payload, fix.otpRegisterStart.input[3])
 
-          // eval stubs & spies
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.otpRegisterStart.input[0]
-          )               
-
           sinon.assert.calledOnce(api.authenticator.generateSecret)
 
           const cacheKey = `otp.reg.${u2fid}`
@@ -185,12 +166,6 @@ describe('One-Time Password | API Responses', function() {
 
           sinon.assert.calledWith(api.validatePayload, payload, fix.otpRegisterStart.input[3])
 
-          // eval stubs & spies
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.otpRegisterStart.input[0]
-          )               
-
           sinon.assert.calledOnce(api.authenticator.generateSecret)
 
           const cacheKey = `otp.reg.${u2fid}`
@@ -230,12 +205,6 @@ describe('One-Time Password | API Responses', function() {
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.otpRegisterFinish.input[3])
 
-          // eval stubs & spies
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.otpRegisterFinish.input[0]
-          )
-
 
         })
         .then(done).catch(done)
@@ -269,12 +238,6 @@ describe('One-Time Password | API Responses', function() {
 
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.otpRegisterFinish.input[3])
-
-          // eval stubs & spies
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.otpRegisterFinish.input[0]
-          )
 
           const cacheKey = `otp.reg.${u2fid}`
           sinon.assert.calledOnce(api.cache.get)
@@ -322,12 +285,6 @@ describe('One-Time Password | API Responses', function() {
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.otpRegisterFinish.input[3])
 
-          // eval stubs & spies
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.otpRegisterFinish.input[0]
-          )
-
           const cacheKey = `otp.reg.${u2fid}`
           sinon.assert.calledOnce(api.cache.get)
           sinon.assert.calledWith(api.cache.get, cacheKey)
@@ -366,12 +323,6 @@ describe('One-Time Password | API Responses', function() {
 
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.otpRegisterFinish.input[3])
-
-          // eval stubs & spies
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.otpRegisterFinish.input[0]
-          )
 
           const cacheKey = `otp.reg.${u2fid}`
           sinon.assert.calledOnce(api.cache.get)
@@ -417,12 +368,6 @@ describe('One-Time Password | API Responses', function() {
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.otpRegisterFinish.input[3])
 
-          // eval stubs & spies
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.otpRegisterFinish.input[0]
-          )
-
           const cacheKey = `otp.reg.${u2fid}`
           sinon.assert.calledOnce(api.cache.get)
           sinon.assert.calledWith(api.cache.get, cacheKey)
@@ -456,12 +401,6 @@ describe('One-Time Password | API Responses', function() {
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.otpRemove.input[2])
 
-          // eval stubs & spies
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.otpRemove.input[0]
-          )          
-
 
         })
         .then(done).catch(done)
@@ -482,12 +421,6 @@ describe('One-Time Password | API Responses', function() {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.otpRemove.input[2])
-
-          // eval stubs & spies
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.otpRemove.input[0]
-          )
 
           sinon.assert.calledOnce(api.data.delete.byU2fIdUuid)
           sinon.assert.calledWith(api.data.delete.byU2fIdUuid,
@@ -516,12 +449,6 @@ describe('One-Time Password | API Responses', function() {
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.otpRemove.input[2])
 
-          // eval stubs & spies
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.otpRemove.input[0]
-          )
-
           sinon.assert.calledOnce(api.data.delete.byU2fIdUuid)
           sinon.assert.calledWith(api.data.delete.byU2fIdUuid,
             u2fid,
@@ -548,12 +475,6 @@ describe('One-Time Password | API Responses', function() {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.otpRemove.input[2])
-
-          // eval stubs & spies
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.otpRemove.input[0]
-          )
 
           sinon.assert.calledOnce(api.data.delete.byU2fIdUuid)
           sinon.assert.calledWith(api.data.delete.byU2fIdUuid,
@@ -582,12 +503,6 @@ describe('One-Time Password | API Responses', function() {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.otpRemove.input[2])
-
-          // eval stubs & spies
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.otpRemove.input[0]
-          )
 
           sinon.assert.calledOnce(api.data.delete.byU2fIdUuid)
           sinon.assert.calledWith(api.data.delete.byU2fIdUuid,
@@ -623,11 +538,6 @@ describe('One-Time Password | API Responses', function() {
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.otpAuthenticate.input[2])
 
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.otpAuthenticate.input[0]
-          )
-
         })
         .then(done).catch(done)
     })
@@ -661,11 +571,6 @@ describe('One-Time Password | API Responses', function() {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.otpAuthenticate.input[2])
-
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.otpAuthenticate.input[0]
-          )
 
           sinon.assert.calledOnce(api.authenticator.check)
           sinon.assert.calledWith(api.authenticator.check,
@@ -710,11 +615,6 @@ describe('One-Time Password | API Responses', function() {
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.otpAuthenticate.input[2])
 
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.otpAuthenticate.input[0]
-          )
-
           sinon.assert.calledOnce(api.authenticator.check)
           sinon.assert.calledWith(api.authenticator.check,
             fix.otpAuthenticate.input[1].token,
@@ -758,11 +658,6 @@ describe('One-Time Password | API Responses', function() {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.otpAuthenticate.input[2])
-
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.otpAuthenticate.input[0]
-          )
 
         })
         .then(done).catch(done)

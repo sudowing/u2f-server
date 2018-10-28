@@ -12,7 +12,7 @@ const sandbox = sinon.createSandbox()
 describe('Root Level | API Responses', function() {
 
   beforeEach(function() {
-    sandbox.spy(api, '_validatePayload')
+    sandbox.spy(api, 'validatePayload')
   })
 
   afterEach(function () {
@@ -28,7 +28,6 @@ describe('Root Level | API Responses', function() {
   describe('mfaStatus', function() {
 
     it('validates input | bad payload', (done) => {
-      sandbox.spy(api, 'validatePayload')
       let payload = {}
 
       Promise.resolve(api.mfaStatus(payload))
@@ -40,12 +39,6 @@ describe('Root Level | API Responses', function() {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload)
-
-          // eval stubs & spies
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.mfaStatus.output[1]
-          )
 
         })
         .then(done).catch(done)
@@ -172,7 +165,6 @@ describe('Root Level | API Responses', function() {
   describe('mfaLogs', function() {
 
     it('validates input | bad payload', (done) => {
-      sandbox.spy(api, 'validatePayload')
       let payload = {}
 
       Promise.resolve(api.mfaLogs(payload))
@@ -185,12 +177,6 @@ describe('Root Level | API Responses', function() {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload)
-
-          // eval stubs & spies
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.mfaLogs.input[0]
-          )
 
         })
         .then(done).catch(done)

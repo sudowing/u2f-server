@@ -12,7 +12,6 @@ describe('U2F Key | API Responses', function() {
 
   beforeEach(function() {
     sandbox.spy(api, 'validatePayload')
-    sandbox.spy(api, '_validatePayload')
   })
 
   afterEach(function () {
@@ -41,11 +40,6 @@ describe('U2F Key | API Responses', function() {
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload)
 
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.keyRegisterStart.input[0]
-          )
-
         })
         .then(done).catch(done)
     })
@@ -68,11 +62,6 @@ describe('U2F Key | API Responses', function() {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload)
-
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.keyRegisterStart.input[0]
-          )
 
           sinon.assert.calledOnce(api.u2f.request)
           sinon.assert.calledWith(api.u2f.request,
@@ -112,11 +101,6 @@ describe('U2F Key | API Responses', function() {
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload)
 
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.keyRegisterStart.input[0]
-          )
-
           sinon.assert.calledOnce(api.u2f.request)
           sinon.assert.calledWith(api.u2f.request,
             payload.appId
@@ -153,11 +137,6 @@ describe('U2F Key | API Responses', function() {
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.keyRegisterFinish.input[2])
 
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.keyRegisterFinish.input[0]
-          )
-
 
         })
         .then(done).catch(done)
@@ -183,11 +162,6 @@ describe('U2F Key | API Responses', function() {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.keyRegisterFinish.input[2])
-
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.keyRegisterFinish.input[0]
-          )
 
           const u2fid = api.genU2fId(payload.appId, payload.account, payload.secret)
 
@@ -234,11 +208,6 @@ describe('U2F Key | API Responses', function() {
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.keyRegisterFinish.input[2])
 
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.keyRegisterFinish.input[0]
-          )
-
           const u2fid = api.genU2fId(payload.appId, payload.account, payload.secret)
 
           const cacheKey = `u2f.reg.${u2fid}`
@@ -273,11 +242,6 @@ describe('U2F Key | API Responses', function() {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.keyRegisterFinish.input[2])
-
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.keyRegisterFinish.input[0]
-          )
 
           const u2fid = api.genU2fId(payload.appId, payload.account, payload.secret)
 
@@ -323,11 +287,6 @@ describe('U2F Key | API Responses', function() {
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.keyRegisterFinish.input[2])
 
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.keyRegisterFinish.input[0]
-          )
-
           const u2fid = api.genU2fId(payload.appId, payload.account, payload.secret)
 
           const cacheKey = `u2f.reg.${u2fid}`
@@ -369,11 +328,6 @@ describe('U2F Key | API Responses', function() {
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.keyRemove.input[2])
 
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.keyRemove.input[0]
-          )
-
 
         })
         .then(done).catch(done)
@@ -394,11 +348,6 @@ describe('U2F Key | API Responses', function() {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.keyRemove.input[2])
-
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.keyRemove.input[0]
-          )
 
           sinon.assert.calledOnce(api.data.delete.byU2fIdUuid)
           sinon.assert.calledWith(api.data.delete.byU2fIdUuid,
@@ -427,11 +376,6 @@ describe('U2F Key | API Responses', function() {
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.keyRemove.input[2])
 
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.keyRemove.input[0]
-          )
-
           sinon.assert.calledOnce(api.data.delete.byU2fIdUuid)
           sinon.assert.calledWith(api.data.delete.byU2fIdUuid,
             u2fid,
@@ -458,11 +402,6 @@ describe('U2F Key | API Responses', function() {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.keyRemove.input[2])
-
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.keyRemove.input[0]
-          )
 
           sinon.assert.calledOnce(api.data.delete.byU2fIdUuid)
           sinon.assert.calledWith(api.data.delete.byU2fIdUuid,
@@ -492,11 +431,6 @@ describe('U2F Key | API Responses', function() {
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.keyRemove.input[2])
 
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.keyRemove.input[0]
-          )
-
           sinon.assert.calledOnce(api.data.delete.byU2fIdUuid)
           sinon.assert.calledWith(api.data.delete.byU2fIdUuid,
             u2fid,
@@ -525,11 +459,6 @@ describe('U2F Key | API Responses', function() {
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload)
 
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.keyAuthenticateStart.input[0]
-          )
-
         })
         .then(done).catch(done)
     })
@@ -557,11 +486,6 @@ describe('U2F Key | API Responses', function() {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload)
-
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.keyAuthenticateStart.input[0]
-          )
 
           const u2fid = api.genU2fId(payload.appId, payload.account, payload.secret)
 
@@ -611,11 +535,6 @@ describe('U2F Key | API Responses', function() {
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload)
 
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.keyAuthenticateStart.input[0]
-          )
-
           const u2fid = api.genU2fId(payload.appId, payload.account, payload.secret)
 
           sinon.assert.calledOnce(api.data.read.byU2fId)
@@ -663,11 +582,6 @@ describe('U2F Key | API Responses', function() {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload)
-
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.keyAuthenticateStart.input[0]
-          )
 
           const u2fid = api.genU2fId(payload.appId, payload.account, payload.secret)
 
@@ -718,11 +632,6 @@ describe('U2F Key | API Responses', function() {
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.keyAuthenticateFinish.input[2])
 
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.keyAuthenticateFinish.input[0]
-          )
-
         })
         .then(done).catch(done)
     })
@@ -746,11 +655,6 @@ describe('U2F Key | API Responses', function() {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.keyAuthenticateFinish.input[2])
-
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.keyAuthenticateFinish.input[0]
-          )
 
           const u2fid = api.genU2fId(payload.appId, payload.account, payload.secret)
           sinon.assert.calledOnce(api.data.read.byU2fIdKeyhandle)
@@ -804,11 +708,6 @@ describe('U2F Key | API Responses', function() {
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.keyAuthenticateFinish.input[2])
 
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.keyAuthenticateFinish.input[0]
-          )
-
           const u2fid = api.genU2fId(payload.appId, payload.account, payload.secret)
           sinon.assert.calledOnce(api.data.read.byU2fIdKeyhandle)
           sinon.assert.calledWith(api.data.read.byU2fIdKeyhandle,
@@ -861,11 +760,6 @@ describe('U2F Key | API Responses', function() {
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.keyAuthenticateFinish.input[2])
 
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.keyAuthenticateFinish.input[0]
-          )
-
           const u2fid = api.genU2fId(payload.appId, payload.account, payload.secret)
           sinon.assert.calledOnce(api.data.read.byU2fIdKeyhandle)
           sinon.assert.calledWith(api.data.read.byU2fIdKeyhandle,
@@ -908,11 +802,6 @@ describe('U2F Key | API Responses', function() {
           // eval stubs & spies
           sinon.assert.calledOnce(api.validatePayload)
           sinon.assert.calledWith(api.validatePayload, payload, fix.keyAuthenticateFinish.input[2])
-
-          sinon.assert.calledOnce(api._validatePayload)
-          sinon.assert.calledWith(api._validatePayload, payload,
-            fix.keyAuthenticateFinish.input[0]
-          )
 
           const u2fid = api.genU2fId(payload.appId, payload.account, payload.secret)
           sinon.assert.calledOnce(api.data.read.byU2fIdKeyhandle)
