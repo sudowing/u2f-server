@@ -19,16 +19,16 @@ function _validatePayload(payload, specs): ValidationResponse {
   const msg = (prop, message): ValidationProblem => ({ prop, message })
   const problems: ValidationProblem[] = []
   for (let spec of specs) {
-    if (!payload.hasOwnProperty(spec.prop)) {
-      let errMsg = `Field Required`
-      problems.push(msg(spec.prop, errMsg))
+    if (spec.hasOwnProperty('fn') && !spec.fn(payload[spec.prop])) {
+      problems.push(msg(spec.prop, spec.fnMessage))
     }
     else if (spec.hasOwnProperty('positive') && !payload[spec.prop]) {
       let errMsg = `Field must not be Null`
       problems.push(msg(spec.prop, errMsg))
     }
-    else if (spec.hasOwnProperty('fn') && !spec.fn(payload[spec.prop])) {
-      problems.push(msg(spec.prop, spec.fnMessage))
+    else if (!payload.hasOwnProperty(spec.prop)) {
+      let errMsg = `Field Required`
+      problems.push(msg(spec.prop, errMsg))
     }
   }
   return { valid: problems.length < 1, problems }
