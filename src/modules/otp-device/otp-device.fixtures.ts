@@ -45,19 +45,19 @@ fixtures.otpRegisterStart = {
         detail: [
           {
             prop: 'appId',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'account',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'secret',
-            message: 'Field Required'
+            message: `Field must not be Null`
           },
           {
             prop: 'type',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           }
         ]
       }
@@ -127,27 +127,27 @@ fixtures.otpRegisterFinish = {
         detail: [
           {
             prop: 'appId',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'account',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'secret',
-            message: 'Field Required'
+            message: `Field must not be Null`
           },
           {
             prop: 'token',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'type',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'nickname',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           }
         ]
       }
@@ -215,19 +215,19 @@ fixtures.otpRemove = {
         detail: [
           {
             prop: 'appId',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'account',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'secret',
-            message: 'Field Required'
+            message: `Field must not be Null`
           },
           {
             prop: 'uuid',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           }
         ]
       }
@@ -296,19 +296,19 @@ fixtures.otpAuthenticate = {
         detail: [
           {
             prop: 'appId',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'account',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'secret',
-            message: 'Field Required'
+            message: `Field must not be Null`
           },
           {
             prop: 'token',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           }
         ]
       }
@@ -361,15 +361,15 @@ fixtures.otpStatus = {
         detail: [
           {
             prop: 'appId',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'account',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'secret',
-            message: 'Field Required'
+            message: `Field must not be Null`
           }
         ]
       }

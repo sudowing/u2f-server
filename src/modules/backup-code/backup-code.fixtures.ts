@@ -51,15 +51,15 @@ fixtures.codeRegister = {
         detail: [
           {
             prop: 'appId',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'account',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'secret',
-            message: 'Field Required'
+            message: `Field must not be Null`
           }
         ]
       }
@@ -109,18 +109,18 @@ fixtures.codeAuthenticate = {
         detail: [
           {
             prop: 'appId',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'account',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'secret',
-            message: 'Field Required'
+            message: `Field must not be Null`
           },          {
             prop: 'code',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           }
         ]
       }

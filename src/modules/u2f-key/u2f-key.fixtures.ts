@@ -43,15 +43,15 @@ fixtures.keyRegisterStart = {
         detail: [
           {
             prop: 'appId',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'account',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'secret',
-            message: 'Field Required'
+            message: `Field must not be Null`
           }
         ]
       }
@@ -118,23 +118,23 @@ fixtures.keyRegisterFinish = {
         detail: [
           {
             prop: 'appId',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'account',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'secret',
-            message: 'Field Required'
+            message: `Field must not be Null`
           },
           {
             prop: 'registrationResponse',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'nickname',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           }
         ]
       }
@@ -526,19 +526,19 @@ fixtures.keyRemove = {
         detail: [
           {
             prop: 'appId',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'account',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'secret',
-            message: 'Field Required'
+            message: `Field must not be Null`
           },
           {
             prop: 'uuid',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           }
         ]
       }
@@ -593,15 +593,15 @@ fixtures.keyAuthenticateStart = {
         detail: [
           {
             prop: 'appId',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'account',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'secret',
-            message: 'Field Required'
+            message: `Field must not be Null`
           }
         ]
       }
@@ -666,19 +666,19 @@ fixtures.keyAuthenticateFinish = {
         detail: [
           {
             prop: 'appId',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'account',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'secret',
-            message: 'Field Required'
+            message: `Field must not be Null`
           },
           {
             prop: 'registrationResponse',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           }
         ]
       }
@@ -747,15 +747,15 @@ fixtures.keyStatus = {
         detail: [
           {
             prop: 'appId',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'account',
-            message: 'Field Required'
+            message: `Must be a 'string' with length > 1 AND < 500`
           },
           {
             prop: 'secret',
-            message: 'Field Required'
+            message: `Field must not be Null`
           }
         ]
       }
