@@ -3,72 +3,57 @@ regexPattern.uuid4 = /[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9
 regexPattern.url = /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/
 
 export function validateTypeAndLength(sample, typeString, lengthMin = null, lengthMax = null) {
+    if (sample === undefined) return false
     const validType = typeof sample === typeString
     const short = !isNaN(lengthMin) ? sample.length < lengthMin : true
     const long = !isNaN(lengthMax) ? sample.length > lengthMax : true
     return validType && !short && !long
 }
 
-export const accountCheckMessage = ``
+export const urlCheckMessage = `Must be a 'string' with length > 1 AND < 500`
+export function urlCheck(sample) {
+    return regexPattern.url.test(sample)
+}
+
+export const accountCheckMessage = `Must be a 'string' with length > 1 AND < 500`
 export function accountCheck(sample) {
-    console.log('sample | ', sample)
-    console.log('sample.length | ', sample.length)
-    console.log('account', typeof sample)
-    const validType = typeof sample === 'string'
-    var wip = sample.length > 1
-    console.log('sample.length > lengthMin ::: ', wip)
-    var wip = sample.length < 500
-    console.log('sample.length < lengthMax ::: ', wip)
-
     return validateTypeAndLength(sample, 'string', 1, 500)
 }
 
-export const nicknameCheckMessage = ``
+
+export const nicknameCheckMessage = `Must be a 'string' with length > 1 AND < 500`
 export function nicknameCheck(sample) {
-    console.log('nickname', typeof sample)
     return validateTypeAndLength(sample, 'string', 1, 500)
 }
 
-export const typeCheckMessage = ``
+export const typeCheckMessage = `Must be a 'string' with length > 1 AND < 500`
 export function typeCheck(sample) {
-    console.log('type', typeof sample)
     return validateTypeAndLength(sample, 'string', 1, 500)
 }
 
-export const secretCheckMessage = ``
+export const secretCheckMessage = `Must be a 'string' with length > 1 AND < 500`
 export function secretCheck(sample) {
-    console.log('secret', typeof sample)
     return validateTypeAndLength(sample, 'string', 1, 500)
 }
 
-export const codeCheckMessage = ``
+export const codeCheckMessage = `Must be a 'string' with length > 1 AND < 500`
 export function codeCheck(sample) {
-    console.log('code', typeof sample)
     // length == 8
     return validateTypeAndLength(sample, 'string', 1, 500)
 }
 
-export const tokenCheckMessage = ``
+export const tokenCheckMessage = `Must be a number with 6 digits`
 export function tokenCheck(sample) {
-    console.log('token', typeof sample)
-    return validateTypeAndLength(parseInt(sample, 10), 'number', 1, 500)
+    return validateTypeAndLength(parseInt(sample, 10), 'number', 99999, 1000000)
 }
 
-export const uuid4CheckMessage = ``
+export const uuid4CheckMessage = `Must be a UUID4`
 export function uuid4Check(sample) {
-    console.log('uuid4', typeof sample)
     return regexPattern.uuid4.test(sample)
 }
 
-export const urlCheckMessage = ``
-export function urlCheck(sample) {
-    console.log('url', typeof sample)
-    return regexPattern.url.test(sample)
-}
-
-export const registrationResponseCheckMessage = ``
+export const registrationResponseCheckMessage = `wyz`
 export function registrationResponseCheck(sample) {
-    console.log('registrationResponse', typeof sample)
     return true
 }
 
