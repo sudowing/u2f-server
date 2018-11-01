@@ -4,7 +4,7 @@ import * as uuidv4 from 'uuid/v4'
 
 import { data } from './app.queries'
 import { ServerResponseAuthSuccess, ServerResponseError, ServerResponse } from './app.interfaces'
-
+import * as check from './app.validation'
 interface ValidationProblem {
   prop: string,
   message: string
@@ -61,13 +61,10 @@ const defaultSpecs = []
 
 // base validation specs
 const baseSpecs = [
-  { prop: 'appId', positive: true },
-  { prop: 'account', positive: true },
+  { prop: 'appId', fn: check.urlCheck, fnMessage: check.urlCheckMessage },
+  { prop: 'account', fn:  check.accountCheck, fnMessage:  check.accountCheckMessage },
   { prop: 'secret', positive: true }
 ]
-
-
-
 
 
 
