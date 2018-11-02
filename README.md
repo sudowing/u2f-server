@@ -156,7 +156,7 @@ A `backup_code` is single use and is deleted upon successful authentication.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/sudowing/u2f-server/tags). 
 
 ## License
 
