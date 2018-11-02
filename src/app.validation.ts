@@ -20,10 +20,10 @@ export function accountCheck(sample) {
     return validateTypeAndLength(sample, 'string', 1, 500)
 }
 
-
 export const nicknameCheckMessage = `Must be a 'string' with length > 1 AND < 500`
 export function nicknameCheck(sample) {
-    return validateTypeAndLength(sample, 'string', 1, 500)
+    // null is fine || it get geneated if it is null
+    return sample === null || validateTypeAndLength(sample, 'string', 1, 500)
 }
 
 export const typeCheckMessage = `Must be a 'string' with length > 1 AND < 500`
