@@ -643,7 +643,7 @@
           "description": "Secret used to salt u2fId in API Database",
           "example": ""
         },
-        "registrationResponse": {
+        "authResponse": {
           "description": "registrationResponse object",
           "$ref": "#/definitions/authenticationResponse"
         }
