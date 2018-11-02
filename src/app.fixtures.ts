@@ -1,3 +1,5 @@
+import * as check from './app.validation'
+
 export const fixtures: any = {}
 
 const readBackupCodesByU2fIdCode = `select count("uuid") from "u2f"."backup_code" where "backup_code"."u2fid" = 'byU2fId'`
@@ -211,7 +213,7 @@ fixtures.backupCodes = {
 fixtures.mfaLogs = {
   input: [
     [
-      { prop: 'appId', positive: true },
+      { prop: 'appId', fn: check.urlCheck, fnMessage: check.urlCheckMessage },
       { prop: 'account', positive: true },
       { prop: 'secret', positive: true }
     ],
