@@ -1,3 +1,5 @@
+import * as check from '../../app.validation'
+
 export const fixtures: any = {}
 
 const createRecord = `insert into "u2f"."otp_device" ("account", "appid", "secret", "uuid") values ('accountId', 'appId', 'thisIsaSecret', 'universallyUniqueIdentification')`
@@ -21,7 +23,7 @@ fixtures.newOtpRecord = record
 fixtures.otpRegisterStart = {
   input: [
     [
-      { prop: 'appId', positive: true },
+      { prop: 'appId', fn: check.urlCheck, fnMessage: check.urlCheckMessage },
       { prop: 'account', positive: true },
       { prop: 'secret', positive: true },
       { prop: 'type' }
@@ -34,7 +36,7 @@ fixtures.otpRegisterStart = {
     },
     null,
     [
-      { prop: 'type' }
+      { prop: 'type', fn: check.typeCheck, fnMessage: check.typeCheckMessage }
     ]
   ],
   output: [
@@ -97,7 +99,7 @@ fixtures.otpRegisterStart = {
 fixtures.otpRegisterFinish = {
   input: [
     [
-      { prop: 'appId', positive: true },
+      { prop: 'appId', fn: check.urlCheck, fnMessage: check.urlCheckMessage },
       { prop: 'account', positive: true },
       { prop: 'secret', positive: true },
       { prop: 'token', positive: true },
@@ -114,9 +116,9 @@ fixtures.otpRegisterFinish = {
     },
     'sdsdfds',
     [
-      { prop: 'token', positive: true },
-      { prop: 'type' },
-      { prop: 'nickname' }
+      { prop: 'token', fn: check.tokenCheck, fnMessage: check.tokenCheckMessage },
+      { prop: 'type', fn: check.typeCheck, fnMessage: check.typeCheckMessage },
+      { prop: 'nickname', fn: check.nicknameCheck, fnMessage: check.nicknameCheckMessage },
     ]
   ],
   output: [
@@ -139,7 +141,7 @@ fixtures.otpRegisterFinish = {
           },
           {
             prop: 'token',
-            message: `Must be a 'string' with length > 1 AND < 500`
+            message: `Must be a number with 6 digits`
           },
           {
             prop: 'type',
@@ -192,7 +194,7 @@ fixtures.otpRegisterFinish = {
 fixtures.otpRemove = {
   input: [
     [
-      { prop: 'appId', positive: true },
+      { prop: 'appId', fn: check.urlCheck, fnMessage: check.urlCheckMessage },
       { prop: 'account', positive: true },
       { prop: 'secret', positive: true },
       { prop: 'uuid', positive: true }
@@ -204,7 +206,7 @@ fixtures.otpRemove = {
       uuid: '06a8c09a-0657-40d5-9891-adf0c488864b'
     },
     [
-      { prop: 'uuid', positive: true }
+      { prop: 'uuid', fn: check.uuid4Check, fnMessage: check.uuid4CheckMessage }
     ]
   ],
   output: [
@@ -227,7 +229,7 @@ fixtures.otpRemove = {
           },
           {
             prop: 'uuid',
-            message: `Must be a 'string' with length > 1 AND < 500`
+            message: `Must be a UUID4`
           }
         ]
       }
@@ -273,7 +275,7 @@ fixtures.otpRemove = {
 fixtures.otpAuthenticate = {
   input: [
     [
-      { prop: 'appId', positive: true },
+      { prop: 'appId', fn: check.urlCheck, fnMessage: check.urlCheckMessage },
       { prop: 'account', positive: true },
       { prop: 'secret', positive: true },
       { prop: 'token', positive: true }
@@ -285,7 +287,7 @@ fixtures.otpAuthenticate = {
       token: '123456'
     },
     [
-      { prop: 'token', positive: true }
+      { prop: 'token', fn: check.tokenCheck, fnMessage: check.tokenCheckMessage },
     ]
   ],
   output: [
@@ -308,7 +310,7 @@ fixtures.otpAuthenticate = {
           },
           {
             prop: 'token',
-            message: `Must be a 'string' with length > 1 AND < 500`
+            message: `Must be a number with 6 digits`
           }
         ]
       }
@@ -343,7 +345,7 @@ fixtures.otpAuthenticate = {
 fixtures.otpStatus = {
   input: [
     [
-      { prop: 'appId', positive: true },
+      { prop: 'appId', fn: check.urlCheck, fnMessage: check.urlCheckMessage },
       { prop: 'account', positive: true },
       { prop: 'secret', positive: true }
     ],

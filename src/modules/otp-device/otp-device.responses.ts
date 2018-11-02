@@ -6,6 +6,7 @@ import * as uuidv4 from 'uuid/v4'
 
 import { BaseResponseGenerator } from '../../utils'
 import { ServerResponse } from '../../app.interfaces'
+import * as check from '../../app.validation'
 
 import { data } from './otp-device.queries'
 import { cache } from '../../app.network-resources'
@@ -48,7 +49,7 @@ export class OTPResponseGenerator extends BaseResponseGenerator {
 
     // validation specs
     const specs = [
-      { prop: 'type' }
+      { prop: 'type', fn: check.typeCheck, fnMessage: check.typeCheckMessage },
     ]
 
     // validation process
@@ -89,9 +90,9 @@ export class OTPResponseGenerator extends BaseResponseGenerator {
 
     // validation specs
     const specs = [
-      { prop: 'token', positive: true },
-      { prop: 'type' },
-      { prop: 'nickname' }
+      { prop: 'token', fn: check.tokenCheck, fnMessage: check.tokenCheckMessage },
+      { prop: 'type', fn: check.typeCheck, fnMessage: check.typeCheckMessage },
+      { prop: 'nickname', fn: check.nicknameCheck, fnMessage: check.nicknameCheckMessage },
     ]
 
     // validation process
@@ -141,7 +142,7 @@ export class OTPResponseGenerator extends BaseResponseGenerator {
 
     // validation specs
     const specs = [
-      { prop: 'uuid', positive: true },
+      { prop: 'uuid', fn: check.uuid4Check, fnMessage: check.uuid4CheckMessage }
     ]
 
     // validation process
@@ -172,7 +173,7 @@ export class OTPResponseGenerator extends BaseResponseGenerator {
 
     // validation specs
     const specs = [
-      { prop: 'token', positive: true }
+      { prop: 'token', fn: check.tokenCheck, fnMessage: check.tokenCheckMessage },
     ]
 
     // validation process
