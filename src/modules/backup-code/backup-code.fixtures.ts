@@ -1,3 +1,5 @@
+import * as check from '../../app.validation'
+
 export const fixtures: any = {}
 
 const createRecords = `insert into "u2f"."backup_code" ("account", "appid", "code", "uuid") values ('accountId', 'appId', 'codeAlpha', 'idAlpha'), ('accountId', 'appId', 'codeBravo', 'idBravo'), ('accountId', 'appId', 'codeCharlie', 'idCharlie'), ('accountId', 'appId', 'codeDelta', 'idDelta') returning "uuid"`
@@ -33,7 +35,7 @@ fixtures.hashCode = {
 fixtures.codeRegister = {
   input: [
     [
-      { prop: 'appId', positive: true },
+      { prop: 'appId', fn: check.urlCheck, fnMessage: check.urlCheckMessage },
       { prop: 'account', positive: true },
       { prop: 'secret', positive: true }
     ],
@@ -80,13 +82,13 @@ fixtures.codeRegister = {
 fixtures.codeAuthenticate = {
   input: [
     [
-      { prop: 'code', positive: true }
+      { prop: 'code', fn: check.codeCheck, fnMessage: check.codeCheckMessage }
     ],
     [
-      { prop: 'appId', positive: true },
+      { prop: 'appId', fn: check.urlCheck, fnMessage: check.urlCheckMessage },
       { prop: 'account', positive: true },
       { prop: 'secret', positive: true },
-      { prop: 'code', positive: true }
+      { prop: 'code', fn: check.codeCheck, fnMessage: check.codeCheckMessage }
     ],
     {
       appId: 'https://example.com',

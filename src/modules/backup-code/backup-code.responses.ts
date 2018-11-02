@@ -3,7 +3,7 @@ import * as crypto from 'crypto'
 import * as uuidv4 from 'uuid/v4'
 
 import { BaseResponseGenerator } from '../../utils'
-
+import * as check from '../../app.validation'
 import { data } from './backup-code.queries'
 import {
   QueryReadByU2fIdCode,
@@ -75,7 +75,7 @@ export class BackupCodeResponseGenerator extends BaseResponseGenerator {
 
     // validation specs
     const specs = [
-      { prop: 'code', positive: true }
+      { prop: 'code', fn: check.codeCheck, fnMessage: check.codeCheckMessage }
     ]
 
     // validation process
