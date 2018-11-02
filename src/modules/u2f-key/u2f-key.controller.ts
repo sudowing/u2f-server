@@ -65,7 +65,7 @@ function keyAuthenticateFinish(req, res) {
     appId: req.body.appId || null,
     account: req.body.account || null,
     secret: req.body.secret || 'secret',
-    registrationResponse: req.body.deviceResponse || null
+    authResponse: req.body.deviceResponse || null
   }
   api.keyAuthenticateFinish(payload)
     .then(apiResponse => {
