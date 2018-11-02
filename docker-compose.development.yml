@@ -39,7 +39,7 @@ services:
       - "443:443"
     environment:
       ALLOWED_DOMAINS: example.com
-      SITES: 'api.example.com=10.186.132.137:8881;docs.example.com=10.186.132.137:8882;coverage.example.com=10.186.132.137:8883;example.com=10.186.132.137:8884;'
+      SITES: 'api.example.com=YOUR_LOCAL_IP_HERE:8881;docs.example.com=YOUR_LOCAL_IP_HERE:8882;coverage.example.com=YOUR_LOCAL_IP_HERE:8883;example.com=YOUR_LOCAL_IP_HERE:8884;'
     restart: always
     depends_on:
       - mfa-api
