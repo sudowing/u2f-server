@@ -28,7 +28,8 @@ export function nicknameCheck(sample) {
 
 export const typeCheckMessage = `Must be a 'string' with length > 1 AND < 500`
 export function typeCheck(sample) {
-    return validateTypeAndLength(sample, 'string', 1, 500)
+    // null is fine
+    return  sample === null || validateTypeAndLength(sample, 'string', 1, 500)
 }
 
 export const secretCheckMessage = `Must be a 'string' with length > 1 AND < 500`
@@ -44,7 +45,8 @@ export function codeCheck(sample) {
 
 export const tokenCheckMessage = `Must be a number with 6 digits`
 export function tokenCheck(sample) {
-    return validateTypeAndLength(parseInt(sample, 10), 'number', 99999, 1000000)
+    // require a positve value
+    return !!sample && validateTypeAndLength(parseInt(sample, 10), 'number', 99999, 1000000)
 }
 
 export const uuid4CheckMessage = `Must be a UUID4`
@@ -52,33 +54,33 @@ export function uuid4Check(sample) {
     return regexPattern.uuid4.test(sample)
 }
 
-export const registrationResponseCheckMessage = `wyz`
+export const registrationResponseCheckMessage = `Must contain following keys: 'registrationData', 'version', 'appId', 'challenge' and 'clientData'`
 export function registrationResponseCheck(sample) {
-    return true
+    if (!sample) return false
+    return (
+        sample.hasOwnProperty('registrationData') &&
+        typeof sample.registrationData === 'string' &&
+        sample.hasOwnProperty('version') &&
+        validateTypeAndLength(sample.version, 'string', 5, 10) &&
+        sample.hasOwnProperty('appId') &&
+        urlCheck(sample.appId) &&
+        sample.hasOwnProperty('challenge') &&
+        validateTypeAndLength(sample.challenge, 'string', 40, 100) &&
+        sample.hasOwnProperty('clientData') &&
+        validateTypeAndLength(sample.clientData, 'string', 50, 500)
+    )
+
 }
 
-// account | length && string
-// token | length && string
-// nickname | length && string
-// type | length && string
-// secret | length && string
-// code | length (8) && string
-// token | length && number (otp code)
-
-// uuid | uuid
-// appId | url
-
-
-
-// registrationResponse | keys must exist && keys must each meet
-    // registrationData | length (min) && string
-    // version | length && string
-    // appId | lurl
-    // challenge | length && string
-    // clientData | length (min) && string
-// regex
-//     https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test
-
-//   { prop: 'other', fn: zzzzzzz, fnMessage: zzzzzzMessage } // custom fn run on prop
-
-//   { prop: 'other', fn: (input) => true, fnMessage: 'Must be this or that' } // custom fn run on prop
+export const authResponseCheckMessage = `Must contain following keys: 'keyHandle', 'clientData' and 'signatureData'`
+export function authResponseCheck(sample) {
+    if (!sample) return false
+    return (
+        sample.hasOwnProperty('keyHandle') &&
+        validateTypeAndLength(sample.keyHandle, 'string', 20, 400) &&
+        sample.hasOwnProperty('clientData') &&
+        validateTypeAndLength(sample.clientData, 'string', 20, 400) &&
+        sample.hasOwnProperty('signatureData') &&
+        validateTypeAndLength(sample.signatureData, 'string', 20, 400)
+    )
+}
