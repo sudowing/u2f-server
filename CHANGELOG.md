@@ -11,6 +11,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 ### Fixed
 
+## [2.0.0](https://github.com/sudowing/u2f-server/tree/v2.0.0) - 2018-11-02
+
+### Changed
+- Applied validation to all routes and payloads
+- Updated Readme links and schema image
+- Updated Swagger Docs
+
+### Fixed
+- Fixed response payloads wrapped in single object key `data` (Breaking Change)
+- Bug in Demo Client
+
 ## [1.2.0](https://github.com/sudowing/u2f-server/tree/v1.2.0) - 2018-09-21
 
 ### Changed
