@@ -1,3 +1,5 @@
+import * as check from '../../app.validation'
+
 export const fixtures: any = {}
 
 const createRecord = `insert into "u2f"."u2f_key" ("account", "appid", "key_handle", "public_key", "uuid", "version") values ('accountId', 'appId', 'keyHandle', 'publicKey', 'universallyUniqueIdentification', 'version')`
@@ -25,7 +27,7 @@ fixtures.newU2fRecord = record
 fixtures.keyRegisterStart = {
   input: [
     [
-      { prop: 'appId', positive: true },
+      { prop: 'appId', fn: check.urlCheck, fnMessage: check.urlCheckMessage },
       { prop: 'account', positive: true },
       { prop: 'secret', positive: true }
     ],
@@ -85,7 +87,7 @@ fixtures.keyRegisterStart = {
 fixtures.keyRegisterFinish = {
   input: [
     [
-      { prop: 'appId', positive: true },
+      { prop: 'appId', fn: check.urlCheck, fnMessage: check.urlCheckMessage },
       { prop: 'account', positive: true },
       { prop: 'secret', positive: true },
       { prop: 'registrationResponse', positive: true },
@@ -105,8 +107,8 @@ fixtures.keyRegisterFinish = {
       nickname: 'nickname'
     },
     [
-      { prop: 'registrationResponse', positive: true },
-      { prop: 'nickname' }
+      { prop: 'registrationResponse', fn: check.registrationResponseCheck, fnMessage: check.registrationResponseCheckMessage },
+      { prop: 'nickname', fn: check.nicknameCheck, fnMessage: check.nicknameCheckMessage },
     ]
 
   ],
@@ -130,7 +132,7 @@ fixtures.keyRegisterFinish = {
           },
           {
             prop: 'registrationResponse',
-            message: `Must be a 'string' with length > 1 AND < 500`
+            message: `Must contain following keys: 'registrationData', 'version', 'appId', 'challenge' and 'clientData'`
           },
           {
             prop: 'nickname',
@@ -503,7 +505,7 @@ fixtures.keyRegisterFinish = {
 fixtures.keyRemove = {
   input: [
     [
-      { prop: 'appId', positive: true },
+      { prop: 'appId', fn: check.urlCheck, fnMessage: check.urlCheckMessage },
       { prop: 'account', positive: true },
       { prop: 'secret', positive: true },
       { prop: 'uuid', positive: true }
@@ -515,7 +517,7 @@ fixtures.keyRemove = {
       uuid: '06a8c09a-0657-40d5-9891-adf0c488864b'
     },
     [
-      { prop: 'uuid', positive: true }
+      { prop: 'uuid', fn: check.uuid4Check, fnMessage: check.uuid4CheckMessage }
     ]
   ],
   output: [
@@ -538,7 +540,7 @@ fixtures.keyRemove = {
           },
           {
             prop: 'uuid',
-            message: `Must be a 'string' with length > 1 AND < 500`
+            message: `Must be a UUID4`
           }
         ]
       }
@@ -575,7 +577,7 @@ fixtures.keyRemove = {
 fixtures.keyAuthenticateStart = {
   input: [
     [
-      { prop: 'appId', positive: true },
+      { prop: 'appId', fn: check.urlCheck, fnMessage: check.urlCheckMessage },
       { prop: 'account', positive: true },
       { prop: 'secret', positive: true }
     ],
@@ -639,23 +641,23 @@ fixtures.keyAuthenticateStart = {
 fixtures.keyAuthenticateFinish = {
   input: [
     [
-      { prop: 'appId', positive: true },
+      { prop: 'appId', fn: check.urlCheck, fnMessage: check.urlCheckMessage },
       { prop: 'account', positive: true },
       { prop: 'secret', positive: true },
-      { prop: 'registrationResponse', positive: true }
+      { prop: 'authResponse', positive: true }
     ],
     {
       appId: 'https://example.com',
       account: 'batman',
       secret: 'secret',
-      registrationResponse: {
+      authResponse: {
         keyHandle: 'GleE0udLgqLlmpYjB_4aWVKLofjpTw3XzfQyQPx8gKl6HYtYCfCSdsLiQXcvlndj5ZH8XJvmkT7qUrJx3e2DQg',
         clientData: 'eyJ0eXAiOiJuYXZpZ2F0b3IuaWQuZ2V0QXNzZXJ0aW9uIiwiY2hhbGxlbmdlIjoiTmM2dDNSMTFhN3h1OGc5NGU4SzJ6aWM2dm1ZUE5hajFrVlJOdllEWjQwMCIsIm9yaWdpbiI6Imh0dHBzOi8vZXhhbXBsZS5jb20iLCJjaWRfcHVia2V5IjoidW51c2VkIn0',
         signatureData: 'AQAAANswRQIhAOi2sR4BGdLf1ZpaNCY8zDKRCOdq2PDUCDTWa928JaqUAiBqkfHDGmc0KlxVWPNZ_Z9L4-SylcYOxxx9lTj6alrkhA'
       }
     },
     [
-      { prop: 'registrationResponse', positive: true }
+      { prop: 'authResponse', fn: check.authResponseCheck, fnMessage: check.authResponseCheckMessage }
     ]
   ],
   output: [
@@ -677,8 +679,8 @@ fixtures.keyAuthenticateFinish = {
             message: `Field must not be Null`
           },
           {
-            prop: 'registrationResponse',
-            message: `Must be a 'string' with length > 1 AND < 500`
+            prop: 'authResponse',
+            message: `Must contain following keys: 'keyHandle', 'clientData' and 'signatureData'`
           }
         ]
       }
@@ -729,7 +731,7 @@ fixtures.keyAuthenticateFinish = {
 fixtures.keyStatus = {
   input: [
     [
-      { prop: 'appId', positive: true },
+      { prop: 'appId', fn: check.urlCheck, fnMessage: check.urlCheckMessage },
       { prop: 'account', positive: true },
       { prop: 'secret', positive: true }
     ],

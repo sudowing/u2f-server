@@ -686,7 +686,6 @@ describe('U2F Key | API Responses', function() {
 
     })
 
-
     it('serves correct api responses', (done) => {
       sandbox.stub(api.data.read, 'byU2fIdKeyhandle')
         .returns(Promise.resolve(fix.keyAuthenticateFinish.output[3]))
@@ -723,7 +722,7 @@ describe('U2F Key | API Responses', function() {
           sinon.assert.calledOnce(api.u2f.checkSignature)
           sinon.assert.calledWith(api.u2f.checkSignature,
             fix.keyAuthenticateFinish.output[2],
-            payload.registrationResponse,
+            payload.authResponse,
             fix.keyAuthenticateFinish.output[3][0].public_key
           )
 

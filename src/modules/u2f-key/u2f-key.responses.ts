@@ -3,8 +3,8 @@ import * as u2f from 'u2f'
 import * as uuidv4 from 'uuid/v4'
 
 import { BaseResponseGenerator } from '../../utils'
+import * as check from '../../app.validation'
 import { ServerResponse } from '../../app.interfaces'
-
 import { data } from './u2f-key.queries'
 import { cache } from '../../app.network-resources'
 
@@ -47,8 +47,8 @@ export class U2FResponseGenerator extends BaseResponseGenerator {
 
     // validation specs
     const specs = [
-      { prop: 'registrationResponse', positive: true },
-      { prop: 'nickname' }
+      { prop: 'registrationResponse', fn: check.registrationResponseCheck, fnMessage: check.registrationResponseCheckMessage },
+      { prop: 'nickname', fn: check.nicknameCheck, fnMessage: check.nicknameCheckMessage },
     ]
 
     // validation process
@@ -100,7 +100,7 @@ export class U2FResponseGenerator extends BaseResponseGenerator {
 
     // validation specs
     const specs = [
-      { prop: 'uuid', positive: true },
+      { prop: 'uuid', fn: check.uuid4Check, fnMessage: check.uuid4CheckMessage },
     ]
 
     // validation process
@@ -162,7 +162,7 @@ export class U2FResponseGenerator extends BaseResponseGenerator {
 
     // validation specs
     const specs = [
-      { prop: 'registrationResponse', positive: true }
+      { prop: 'authResponse', fn: check.authResponseCheck, fnMessage: check.authResponseCheckMessage },
     ]
 
     // validation process
@@ -176,13 +176,13 @@ export class U2FResponseGenerator extends BaseResponseGenerator {
     else {
       const u2fid = this.genU2fId(payload.appId, payload.account, payload.secret)
 
-      const query = this.data.read.byU2fIdKeyhandle(u2fid, payload.registrationResponse.keyHandle)
+      const query = this.data.read.byU2fIdKeyhandle(u2fid, payload.authResponse.keyHandle)
       const cacheKey = `u2f.auth.${u2fid}`
 
       return Bluebird.all([this.cache.get(cacheKey), query])
         .then(([jsonAuthRequest, results]) => {
           const authRequest = JSON.parse(jsonAuthRequest)
-          const admit = this.u2f.checkSignature(authRequest, payload.registrationResponse, results[0].public_key)
+          const admit = this.u2f.checkSignature(authRequest, payload.authResponse, results[0].public_key)
           if (!admit) {
             return this.genServerResponse(this.genAuthError(u2fid), 400)
           }
