@@ -18,10 +18,21 @@ The [`u2f js api`](https://developers.yubico.com/U2F/Libraries/Using_a_library.h
 
 The webserver resolves to domain names, so you'll have to add the domain ([`example.com`](https://example.com) is the default) to your local system (`/etc/hosts` or appropriate file)
 
-Add DNS Records
+### Add DNS Records
 
 ```
 0.0.0.0      api.example.com docs.example.com coverage.example.com example.com
+```
+
+### Update docker-compose.development.yml
+
+`make run` applies `docker-compose.development.yml` which includes an environmental variable `SITES` within the `dev-ssl-proxy` defination. This variable is used by the development NGINX server to proxy the multiple services as HTTPS resources.
+
+Before successfully running the project in development mode, you'll need to update the line below, replacing `YOUR_LOCAL_IP_HERE` with your local ip `10.1.2.3`. Be sure to use an IP that the containers will resolve to your host. `localhost`/`0.0.0.0`/etc, will all resolve to inside the NGINX proxy container itself and will not work.
+
+```
+      SITES: 'api.example.com=YOUR_LOCAL_IP_HERE:8881;docs.example.com=YOUR_LOCAL_IP_HERE:8882;coverage.example.com=YOUR_LOCAL_IP_HERE:8883;example.com=YOUR_LOCAL_IP_HERE:8884;'
+
 ```
 
 ---
