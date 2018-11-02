@@ -248,7 +248,7 @@ function keyAuthenticateProcess(demoDisplay, formData, u2f_authRequest) {
       apiCall(apiRouter.keyAuthenticateFinish, formData)
         .then(keyAuthenticateFinalStatus => {
           demoDisplay.feedback_api_response_text.innerHTML = JSON.stringify(keyAuthenticateFinalStatus)
-          if (keyAuthenticateFinalStatus.result.successful) {
+          if (keyAuthenticateFinalStatus.result) {
             demoDisplay.feedback_instruction_text.innerHTML = 'U2F Token Auth Successful'
           }
           else {
