@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 ### Fixed
 
+## [2.1.0](https://github.com/sudowing/u2f-server/tree/v2.1.0) - 2018-11-02
+
+### Fixed
+- Multiple typos in README.md.
+
+### Removed
+- Removed TODO.md. Was only meant as temporary document. Never intended to be included in repo.
+
 ## [2.0.1](https://github.com/sudowing/u2f-server/tree/v2.0.1) - 2018-11-02
 
 ### Fixed
