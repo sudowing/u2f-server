@@ -14,7 +14,7 @@ For more information about **Universal 2nd Factor** & **One-Time Password** see 
 
 ## Prerequisites
 
-The [`u2f js api`](https://developers.yubico.com/U2F/Libraries/Using_a_library.html) requires the web client be served via https . This requirement creates a hurdle for developers to get up and running. For development, this project uses an NGINX proxy with https enabled.
+The [`u2f js api`](https://developers.yubico.com/U2F/Libraries/Using_a_library.html) requires the web client be served via https. This requirement creates a hurdle for developers to get up and running. For development, this project uses an NGINX proxy with https enabled.
 
 The webserver resolves to domain names, so you'll have to add the domain ([`example.com`](https://example.com) is the default) to your local system (`/etc/hosts` or appropriate file)
 
@@ -26,7 +26,7 @@ The webserver resolves to domain names, so you'll have to add the domain ([`exam
 
 ### Update docker-compose.development.yml
 
-`make run` applies `docker-compose.development.yml` which includes an environmental variable `SITES` within the `dev-ssl-proxy` defination. This variable is used by the development NGINX server to proxy the multiple services as HTTPS resources.
+`make run` applies `docker-compose.development.yml` which includes an environmental variable `SITES` within the `dev-ssl-proxy` definition. This variable is used by the development NGINX server to proxy the multiple services as HTTPS resources.
 
 Before successfully running the project in development mode, you'll need to update the line below, replacing `YOUR_LOCAL_IP_HERE` with your local ip `10.1.2.3`. Be sure to use an IP that the containers will resolve to your host. `localhost`/`0.0.0.0`/etc, will all resolve to inside the NGINX proxy container itself and will not work.
 
@@ -39,7 +39,7 @@ Before successfully running the project in development mode, you'll need to upda
 
 ## Development
 
-Development doesn't require local installion of node or any of the project's dependencies. Instead, those dependencies are bundled within the docker container and [`nodemon`](https://nodemon.io/) is leveraged to monitor changes to the app's source (from your local system which is mounted to the docker container) and reload the microservice.
+Development doesn't require local installion of node or any of the project's dependencies. Instead, those dependencies are bundled within the docker container and [`nodemon`](https://nodemon.io/) monitors changes to the app's source (which is mounted from your local system to the docker container) and reload the microservice.
 
 This command starts the app, it's dependencies (database & cache), and additional development services (https proxy & more).
 ```
@@ -78,11 +78,14 @@ This process starts the database (with persistent data), cache server and the ap
 
 ##### NOTE: In **Production**, you'll want to make sure you're managing the db service correctly (backups, dumps, snapshots, redundancy, etc). 
 
-To build and tag a **production image** (`u2f-server:master`) with your local changes use:
+To build and tag a **production image** (`u2f-server:latest`) with your local changes use:
 
 ```
 make release
 ```
+
+**NOTE:** Production images hosted on [Docker Hub](https://hub.docker.com/r/sudowing/u2f-server/)
+
 
 ---
 
@@ -98,7 +101,7 @@ The command mounts your local `src` directory inside the container and runs the 
 make test
 ```
 
-### Running inside the container
+### Running outside the container
 
 The command mounts your local `src` directory inside the container and runs the test suite.
 ```
@@ -114,7 +117,7 @@ npm run test:coverage
 
 ### Note about Code Coverage
 
-This docker images (**`u2f-server:develop`** & **`u2f-server:master`**) both generate the code coverage HTML when the container starts (this is done in the entrypoint script).
+This docker images (**`u2f-server:develop`** & **`u2f-server:latest`**) both generate the code coverage HTML when the container starts (this is done in the entrypoint script).
 
 This HTML can be updated/overwritten by running `npm run test:coverage` **INSIDE** or **OUTSIDE** the container.
 
@@ -135,7 +138,7 @@ The command mounts your local `src` directory inside the container and runs the 
 make lint
 ```
 
-### Running inside the container
+### Running outside the container
 
 The command mounts your local `src` directory inside the container and runs the test suite.
 ```
